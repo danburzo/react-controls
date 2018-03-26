@@ -16,8 +16,8 @@ class NumericInput extends React.PureComponent {
 		this.end = this.end.bind(this);
 		this.start = this.start.bind(this);
 		this.register = this.register.bind(this);
-		this.increment = this.increment.bind(this);
-		this.decrement = this.decrement.bind(this);
+		this.increase = this.increase.bind(this);
+		this.decrease = this.decrease.bind(this);
 		this.format_user_input = this.format_user_input.bind(this);
 
 		this.state = {
@@ -102,8 +102,8 @@ class NumericInput extends React.PureComponent {
 					format={this.format_user_input}
 					value={value}
 					onChange={this.change}
-					onPrev={this.decrement}
-					onNext={this.increment}
+					onPrev={this.decrease}
+					onNext={this.increase}
 					onStart={this.start}
 					onEnd={this.end}
 				/>
@@ -111,8 +111,8 @@ class NumericInput extends React.PureComponent {
 					React.Children.map(
 						this.props.children,
 						child => React.cloneElement(child, {
-							increment: this.increment,
-							decrement: this.decrement,
+							increase: this.increase,
+							decrease: this.decrease,
 							end: this.end,
 							start: this.start
 						})
@@ -122,17 +122,11 @@ class NumericInput extends React.PureComponent {
 		);
 	}
 
-	/*
-		Keyboard handling
-		-----------------------------------------------------------
-	*/
-
-
-	increment(e) {
+	increase(e) {
 		this.offset(e, 1);
 	}
 
-	decrement(e) {
+	decrease(e) {
 		this.offset(e, -1);
 	}
 

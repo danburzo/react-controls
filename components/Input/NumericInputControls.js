@@ -4,8 +4,8 @@ import EventListener from 'react-event-listener';
 import { noop } from '../util/functions';
 
 const initial_state = {
-	incrementing: false,
-	decrementing: false
+	increasing: false,
+	decreasing: false
 };
 
 const repeat_delay = 600; // milliseconds
@@ -16,39 +16,39 @@ class NumericInputControls extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
-		this.startIncrement = this.startIncrement.bind(this);
-		this.doIncrement = this.doIncrement.bind(this);
-		this.stopIncrement = this.stopIncrement.bind(this);
+		this.startIncrease = this.startIncrease.bind(this);
+		this.doIncrease = this.doIncrease.bind(this);
+		this.stopIncrease = this.stopIncrease.bind(this);
 
-		this.startDecrement = this.startDecrement.bind(this);
-		this.doDecrement = this.doDecrement.bind(this);
-		this.stopDecrement = this.stopDecrement.bind(this);
+		this.startDecrease = this.startDecrease.bind(this);
+		this.doDecrease = this.doDecrease.bind(this);
+		this.stopDecrease = this.stopDecrease.bind(this);
 
 		this.end = this.end.bind(this);
 
 		this.state = initial_state;
 	}
 
-	startIncrement(e) {
+	startIncrease(e) {
 		this.setState({
-			incrementing: true
+			increasing: true
 		}, () => {
 			this.start(e);
-			this.doIncrement(repeat_delay);
+			this.doIncrease(repeat_delay);
 		});
 		e.preventDefault();
 	}
 
-	doIncrement(timeout = repeat_interval) {
-		if (this.state.incrementing) {
-			this.props.increment();
-			window.setTimeout(this.doIncrement, timeout);
+	doIncrease(timeout = repeat_interval) {
+		if (this.state.increasing) {
+			this.props.increase();
+			window.setTimeout(this.doIncrease, timeout);
 		}
 	}
 
-	stopIncrement(e) {
+	stopIncrease(e) {
 		this.setState({
-			incrementing: false
+			increasing: false
 		}, () => { this.end(e) });
 	}
 
@@ -60,41 +60,41 @@ class NumericInputControls extends React.PureComponent {
 		this.props.end(e);
 	}
 
-	startDecrement(e) {
+	startDecrease(e) {
 		this.setState({
-			decrementing: true
+			decreasing: true
 		}, () => {
 			this.start(e);
-			this.doDecrement(repeat_delay);
+			this.doDecrease(repeat_delay);
 		});
 		e.preventDefault();
 	}
 
-	doDecrement(timeout = repeat_interval) {
-		if (this.state.decrementing) {
-			this.props.decrement();
-			window.setTimeout(this.doDecrement, timeout);
+	doDecrease(timeout = repeat_interval) {
+		if (this.state.decreasing) {
+			this.props.decrease();
+			window.setTimeout(this.doDecrease, timeout);
 		}
 	}
 
-	stopDecrement(e) {
+	stopDecrease(e) {
 		this.setState({
-			decrementing: false
+			decreasing: false
 		}, () => { this.end(e) });
 	} 
 
 	render() {
 
 		let {
-			incrementing,
-			decrementing
+			increasing,
+			decreasing
 		} = this.state;
 
 		return (
 			<span className='uix-input__controls'>
 				<span 
 					className='uix-input__control uix-input__control--increment'
-					onMouseDown={this.startIncrement}
+					onMouseDown={this.startIncrease}
 				>
 					<svg viewBox='0 0 20 9' className='uix-icon uix-icon--uparrow'>
 						<path d='M 5 7 L 10 2 L 15 7'/>
@@ -102,16 +102,16 @@ class NumericInputControls extends React.PureComponent {
 				</span>
 
 				{ 
-					incrementing && 
+					increasing && 
 						<EventListener
 							target='document'
-							onMouseUp={this.stopIncrement}
+							onMouseUp={this.stopIncrease}
 						/>
 				}
 				
 				<span 
 					className='uix-input__control uix-input__control--decrement'
-					onMouseDown={this.startDecrement}
+					onMouseDown={this.startDecrease}
 				>
 					<svg viewBox='0 0 20 9' className='uix-icon uix-icon--downarrow'>
 						<path d='M 5 2 L 10 7 L 15 2'/>
@@ -119,10 +119,10 @@ class NumericInputControls extends React.PureComponent {
 				</span>
 
 				{ 
-					decrementing && 
+					decreasing && 
 						<EventListener
 							target='document'
-							onMouseUp={this.stopDecrement}
+							onMouseUp={this.stopDecrease}
 						/>
 				}
 			</span>
@@ -131,8 +131,8 @@ class NumericInputControls extends React.PureComponent {
 };
 
 NumericInputControls.defaultProps = {
-	increment: noop,
-	decrement: noop,
+	increase: noop,
+	decrease: noop,
 	end: noop,
 	start: noop
 };
