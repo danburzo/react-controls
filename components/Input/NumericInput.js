@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { scaleLinear } from 'd3-scale';
-
 import { to_step, cycle, clamp, parse_expression, parse_float } from '../util/math';
 import { noop } from '../util/functions';
+
+import { TextInput } from './';
+
 
 class NumericInput extends React.PureComponent {
 
@@ -11,70 +12,26 @@ class NumericInput extends React.PureComponent {
 
 		super(props);
 
-		this.keydown = this.keydown.bind(this);
 		this.change = this.change.bind(this);
 		this.end = this.end.bind(this);
 		this.start = this.start.bind(this);
 		this.register = this.register.bind(this);
 		this.increment = this.increment.bind(this);
 		this.decrement = this.decrement.bind(this);
-		this.blur = this.blur.bind(this);
-		this.focus = this.focus.bind(this);
+		this.format_user_input = this.format_user_input.bind(this);
 
 		this.state = {
-			transient_value: props.value,
-			value: props.value,
-			focused: false
+			value: props.value
 		};
 
 	}
 
-	componentWillReceiveProps(props) {
-		this.setState(
-			this.state.focused ? {
-				value: props.value
-			} : {
-				transient_value: props.value,
-				value: props.value
-			}
-		);
+	componentWillReceiveProps({ value }) {
+		this.setState({ value });
 	}
 
-	change(e) {
-
-		let input_value = e.target.value;
-
-		this.setState(
-			current_state => {
-				let ret = {
-					transient_value: input_value
-				};
-
-				let val = this.format_user_input(input_value);
-				if (val !== current_state.value) {
-					ret['value'] = val;
-				}
-
-				return ret;
-			}
-		);
-	}
-
-	focus(e) {
-		this.setState({
-			focused: true
-		}, () => {
-			this.start(e);
-		})
-		
-	}
-
-	blur(e) {
-		this.setState({
-			focused: false
-		}, () => {
-			this.end(e);
-		})
+	change(value) {
+		this.setState({ value });
 	}
 
 	start(e) {
@@ -86,10 +43,7 @@ class NumericInput extends React.PureComponent {
 	}
 
 	componentDidUpdate(prev_props, prev_state) {
-		// If update occured because of outside props, don't trigger onChange
-		if (this.state.value !== prev_state.value && prev_props.value === this.props.value) {
-			this.props.onChange(this.state.value, this.props.property);
-		}
+		this.props.onChange(this.state.value, this.props.property);
 	}
 
 	format_value(value, method = clamp) {
@@ -100,28 +54,14 @@ class NumericInput extends React.PureComponent {
 		);
 	}
 
-	format_user_input(transient_value) {
-		let value = this.props.parse_value(transient_value);
+	format_user_input(proposed_value) {
+		let value = this.props.parse_value(proposed_value);
 
 		if (!isNaN(value) && isFinite(value)) {
 			return this.format_value(value);
 		} else {
 			return this.props.value;
 		}
-	}
-
-	commit(e) {
-		this.setState(
-			current_state => {
-				let value = this.format_user_input(current_state.transient_value);
-				return value !== current_state.value ? { 
-					transient_value: value,
-					value: value
-				} : null
-			}, () => { 
-				this.end(e);
-			}
-		);
 	}
 
 	register(input) {
@@ -145,19 +85,25 @@ class NumericInput extends React.PureComponent {
 		} = this.props;
 
 		let {
-			transient_value
+			value
 		} = this.state;
 
 		return (
 			<div className={`uix-input uix-input--numeric ${className || ''}`}>
-				<input
-					ref={this.register}
-					onKeyDown={this.keydown}
+				<TextInput
+					valid={
+						value => {
+							let num = parseFloat((value + '').trim());
+							return !isNaN(num) && isFinite(num);
+						}
+					}
+					format={this.format_user_input}
+					value={value}
 					onChange={this.change}
-					onFocus={this.focus}
-					onBlur={this.blur}
-					type={type}
-					value={transient_value}
+					onPrev={this.decrement}
+					onNext={this.increment}
+					onStart={this.start}
+					onEnd={this.end}
 				/>
 				{
 					React.Children.map(
@@ -179,25 +125,6 @@ class NumericInput extends React.PureComponent {
 		-----------------------------------------------------------
 	*/
 
-	keydown(e) {
-		let handled = true;
-		switch (e.key) {
-			case 'ArrowUp':
-				this.increment(e);
-				break;
-			case 'ArrowDown':
-				this.decrement(e);
-				break;
-			case 'Enter':
-				this.commit(e);
-			default:
-				handled = false;
-		}
-		if (handled) {
-			e.preventDefault();
-		}
-	}
-
 
 	increment(e) {
 		this.offset(e, 1);
@@ -212,7 +139,7 @@ class NumericInput extends React.PureComponent {
 		this.setState(
 			current_state => {
 
-				let current_value = this.format_user_input(current_state.transient_value);
+				let current_value = this.format_user_input(current_state.value);
 
 				let value = this.format_value(
 					(current_value === undefined ? this.props.start : current_value) + amount, 
@@ -221,7 +148,7 @@ class NumericInput extends React.PureComponent {
 
 				// Avoid unnecessary renders 
 				// when value has not actually changed
-				return value !== current_state.transient_value ? {
+				return value !== current_state.value ? {
 					transient_value: value,
 					value: value
 				} : null;
@@ -232,13 +159,13 @@ class NumericInput extends React.PureComponent {
 	step_amount(e) {
 		return (
 			typeof this.props.increment === 'function' ? 
-				this.props.increment(e, this.props) : this.props.increment
+				this.props.increment(e) : this.props.increment
 		) || this.props.step;
 	}
 
 }
 
-const increment_bigger_step_on_shift = (e, props) => e ? (e.shiftKey ? 10 : 1) * props.step : undefined;
+const increment_bigger_step_on_shift = e => e ? (e.shiftKey ? 10 : 1) : undefined;
 
 NumericInput.defaultProps = {
 	type: 'text',

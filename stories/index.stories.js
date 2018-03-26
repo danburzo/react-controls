@@ -17,7 +17,7 @@ import {
 import { 
 	TextInput,
 	NumericInput,
-	NumericInputControls 
+	NumericInputControls
 } from '../components/Input';
 
 import { 

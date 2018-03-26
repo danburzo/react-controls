@@ -9,3 +9,19 @@
 If, in the process of typing, the input's value conforms to a certain `format`, emit the `onChange` event.
 
 If the `value` is `undefined`, display an empty string in the input.
+
+### Numeric input
+
+<TextInput 
+	valid={
+		value => {
+			let num = parseFloat(value);
+			return !isNaN(num) & isFinite(num);
+		}
+	}	
+	format={
+		value => {
+			return format(parseFloat(value));
+		}
+	}
+/>
