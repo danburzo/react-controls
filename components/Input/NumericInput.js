@@ -42,8 +42,10 @@ class NumericInput extends React.PureComponent {
 		this.props.onEnd(e);
 	}
 
-	componentDidUpdate(prev_props, prev_state) {
-		this.props.onChange(this.state.value, this.props.property);
+	componentDidUpdate() {
+		if (this.state.value !== this.props.value) {
+			this.props.onChange(this.state.value, this.props.property);
+		}
 	}
 
 	format_value(value, method = clamp) {
@@ -149,7 +151,6 @@ class NumericInput extends React.PureComponent {
 				// Avoid unnecessary renders 
 				// when value has not actually changed
 				return value !== current_state.value ? {
-					transient_value: value,
 					value: value
 				} : null;
 			}
