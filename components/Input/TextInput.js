@@ -8,11 +8,9 @@ class TextInput extends React.Component {
 		super(props);
 		this.change = this.change.bind(this);
 		this.handleKeys = this.handleKeys.bind(this);
-		this.focus = this.focus.bind(this);
-		this.blur = this.blur.bind(this);
+		this.register = this.register.bind(this);
 
 		this.state = {
-			focused: false,
 			value: props.value,
 			transient_value: typeof props.value !== undefined ? props.value : ''
 		};
@@ -69,26 +67,15 @@ class TextInput extends React.Component {
 		}
 	}
 
-	focus(e) {
-		this.setState({
-			focused: true
-		}, () => {
-			this.start(e);
-		})
-	}
-
-	blur(e) {
-		this.setState({
-			focused: false
-		});
-	}
-
-	start(e) {
-		this.props.onStart(e);
-	}
-
-	end(e) {
-		this.props.onEnd(e);
+	register(input) {
+		if (input) {
+			this.input = input;
+			if (this.props.autofocus) {
+				this.input.focus();
+			}
+		} else {
+			this.input = null;
+		}
 	}
 
 	render() {
@@ -102,8 +89,9 @@ class TextInput extends React.Component {
 				value={transient_value}
 				onChange={this.change}
 				onKeyDown={this.handleKeys}
-				onFocus={this.focus}
-				onBlur={this.blur}
+				onFocus={this.props.onStart}
+				onBlur={this.props.onEnd}
+				ref={this.register}
 			/>
 		);
 	}

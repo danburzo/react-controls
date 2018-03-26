@@ -77,3 +77,8 @@ const jsep_evaluate = node => {
 export const parse_expression = value => jsep_evaluate(jsep(value + ''));
 
 export const parse_float = value => parseFloat(value);
+
+export const valid_float = value => {
+	let num = parseFloat((value + '').trim());
+	return !isNaN(num) && isFinite(num);
+}

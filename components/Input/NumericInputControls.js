@@ -24,8 +24,6 @@ class NumericInputControls extends React.PureComponent {
 		this.doDecrease = this.doDecrease.bind(this);
 		this.stopDecrease = this.stopDecrease.bind(this);
 
-		this.end = this.end.bind(this);
-
 		this.state = initial_state;
 	}
 
@@ -33,7 +31,7 @@ class NumericInputControls extends React.PureComponent {
 		this.setState({
 			increasing: true
 		}, () => {
-			this.start(e);
+			this.props.onStart(e);
 			this.doIncrease(repeat_delay);
 		});
 		e.preventDefault();
@@ -49,22 +47,16 @@ class NumericInputControls extends React.PureComponent {
 	stopIncrease(e) {
 		this.setState({
 			increasing: false
-		}, () => { this.end(e) });
-	}
-
-	start(e) {
-		this.props.start(e);
-	}
-
-	end(e) {
-		this.props.end(e);
+		}, () => { 
+			this.props.onEnd(e) 
+		});
 	}
 
 	startDecrease(e) {
 		this.setState({
 			decreasing: true
 		}, () => {
-			this.start(e);
+			this.props.onStart(e);
 			this.doDecrease(repeat_delay);
 		});
 		e.preventDefault();
@@ -80,7 +72,9 @@ class NumericInputControls extends React.PureComponent {
 	stopDecrease(e) {
 		this.setState({
 			decreasing: false
-		}, () => { this.end(e) });
+		}, () => { 
+			this.props.onEnd(e) 
+		});
 	} 
 
 	render() {
@@ -133,8 +127,8 @@ class NumericInputControls extends React.PureComponent {
 NumericInputControls.defaultProps = {
 	increase: noop,
 	decrease: noop,
-	end: noop,
-	start: noop
+	onEnd: noop,
+	onStart: noop
 };
 
 export default NumericInputControls;

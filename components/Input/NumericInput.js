@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { to_step, cycle, clamp, parse_expression, parse_float } from '../util/math';
+import { to_step, cycle, clamp, parse_expression, parse_float, valid_float } from '../util/math';
 import { noop } from '../util/functions';
 
 import { TextInput } from './';
@@ -13,9 +13,6 @@ class NumericInput extends React.PureComponent {
 		super(props);
 
 		this.change = this.change.bind(this);
-		this.end = this.end.bind(this);
-		this.start = this.start.bind(this);
-		this.register = this.register.bind(this);
 		this.increase = this.increase.bind(this);
 		this.decrease = this.decrease.bind(this);
 		this.format_user_input = this.format_user_input.bind(this);
@@ -32,14 +29,6 @@ class NumericInput extends React.PureComponent {
 
 	change(value) {
 		this.setState({ value });
-	}
-
-	start(e) {
-		this.props.onStart(e);
-	}
-
-	end(e) {
-		this.props.onEnd(e);
 	}
 
 	componentDidUpdate() {
@@ -65,17 +54,6 @@ class NumericInput extends React.PureComponent {
 			return this.props.value;
 		}
 	}
-
-	register(input) {
-		if (input) {
-			this.input = input;
-			if (this.props.autofocus) {
-				this.input.focus();
-			}
-		} else {
-			this.input = null;
-		}
-	}
  
 	render() {
 
@@ -83,7 +61,9 @@ class NumericInput extends React.PureComponent {
 			type,
 			autofocus,
 			controls,
-			className
+			className,
+			onStart,
+			onEnd
 		} = this.props;
 
 		let {
@@ -93,19 +73,15 @@ class NumericInput extends React.PureComponent {
 		return (
 			<div className={`uix-input uix-input--numeric ${className || ''}`}>
 				<TextInput
-					valid={
-						value => {
-							let num = parseFloat((value + '').trim());
-							return !isNaN(num) && isFinite(num);
-						}
-					}
+					valid={valid_float}
 					format={this.format_user_input}
 					value={value}
 					onChange={this.change}
 					onPrev={this.decrease}
 					onNext={this.increase}
-					onStart={this.start}
-					onEnd={this.end}
+					onStart={onStart}
+					onEnd={onEnd}
+					autofocus={autofocus}
 				/>
 				{
 					React.Children.map(
@@ -113,8 +89,8 @@ class NumericInput extends React.PureComponent {
 						child => React.cloneElement(child, {
 							increase: this.increase,
 							decrease: this.decrease,
-							end: this.end,
-							start: this.start
+							end: this.props.end,
+							start: this.props.start
 						})
 					)
 				}
