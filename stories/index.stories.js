@@ -15,6 +15,7 @@ import {
 } from '../components/Surface';
 
 import { 
+	TextInput,
 	NumericInput,
 	NumericInputControls 
 } from '../components/Input';
@@ -206,6 +207,17 @@ storiesOf('Surface', module)
 
 
 storiesOf('Input', module)
+	.add('TextInput', () => {
+		return (
+			<TextInput 
+				value='caca'
+				onChange={action('onChange')}
+				valid={
+					value => value.match(/^\d+$/)
+				}
+			/>
+		);
+	})
 	.add('NumericInput', () => {
 		return <NumericInput onChange={action('onChange')}>
 			<NumericInputControls/>

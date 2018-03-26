@@ -9,6 +9,7 @@ export {
 } from './Surface';
 
 export { 
+	TextInput,
 	NumericInput,
 	NumericInputControls
 } from './Input';
