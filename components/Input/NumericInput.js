@@ -47,12 +47,7 @@ class NumericInput extends React.PureComponent {
 
 	format_user_input(proposed_value) {
 		let value = this.props.parse_value(proposed_value);
-
-		if (!isNaN(value) && isFinite(value)) {
-			return this.format_value(value);
-		} else {
-			return this.props.value;
-		}
+		return this.format_value(value);
 	}
  
 	render() {
@@ -60,7 +55,6 @@ class NumericInput extends React.PureComponent {
 		let {
 			type,
 			autofocus,
-			controls,
 			className,
 			onStart,
 			onEnd
@@ -89,8 +83,8 @@ class NumericInput extends React.PureComponent {
 						child => React.cloneElement(child, {
 							increase: this.increase,
 							decrease: this.decrease,
-							end: this.props.end,
-							start: this.props.start
+							start: onStart,
+							end: onEnd
 						})
 					)
 				}
@@ -111,10 +105,11 @@ class NumericInput extends React.PureComponent {
 		this.setState(
 			current_state => {
 
-				let current_value = this.format_user_input(current_state.value);
-
 				let value = this.format_value(
-					(current_value === undefined ? this.props.start : current_value) + amount, 
+					(
+						current_state.value !== undefined ? 
+							current_state.value : this.props.start
+					) + amount, 
 					this.props.cyclical ? cycle : clamp
 				);
 
