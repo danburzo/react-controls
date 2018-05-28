@@ -31,8 +31,6 @@ import {
 	PolarPad,
 	PolarPadGrid,
 	PolarPadHandle,
-	BandPad,
-	BandPadProgress,
 	MultiSlider,
 	MultiSliderHandle,
 	Popup,
@@ -215,17 +213,12 @@ storiesOf('Pad', module)
 	})
 	.add('Basic PolarPad', () => {
 		return (
-			<PolarPad onChange={action('onChange')} r_step='10' t_step='10'>
-				<PolarPadHandle/>
-				<PolarPadGrid />
-			</PolarPad>
-		);
-	})
-	.add('Basic BandPad', () => {
-		return (
-			<BandPad>
-				<BandPadProgress/>
-			</BandPad>
+			<ControlledComponentWrapper>
+				<PolarPad property='mypad' r_step='10' t_step='10'>
+					<PolarPadHandle/>
+					<PolarPadGrid />
+				</PolarPad>
+			</ControlledComponentWrapper>
 		);
 	});
 

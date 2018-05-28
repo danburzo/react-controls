@@ -27,19 +27,6 @@ const scale = memoize(
 
 class Pad extends React.PureComponent {
 
-	static getDerivedStateFromProps(props, current_state) {
-
-		let state = {}, changed = false;
-
-		if (current_state.x !== props.x || current_state.y !== props.y) {
-			state['x'] = props.x;
-			state['y'] = props.y;
-			changed = true;
-		}
-
-		return changed ? state : null;
-	}
-
 	constructor(props) {
 
 		super(props);
@@ -71,11 +58,16 @@ class Pad extends React.PureComponent {
 	}
 
 	change({x, y}) {
-		this.props.onChange({
-			x: this.format_x(scale(this.props.x_start, this.props.x_end)(x)),
-			y: this.format_y(scale(this.props.y_start, this.props.y_end)(y))
-		}, this.props.property);
+		let x_val = this.format_x(scale(this.props.x_start, this.props.x_end)(x));
+		let y_val = this.format_y(scale(this.props.y_start, this.props.y_end)(y));
+		this.broadcast(x_val, y_val);
 	}
+
+	broadcast(x, y) {
+		if (x !== this.props.x || y !== this.props.y) {
+			this.props.onChange({x, y}, this.props.property);
+		}
+	} 
 
 	start(e) {
 		this.setState({
@@ -170,29 +162,23 @@ class Pad extends React.PureComponent {
 
 	offset_x(e, dir) {
 		let amount = this.step_x_amount(e) * dir * Math.sign(this.props.x_end - this.props.x_start);
-		this.setState(
-			previous_state => {
-				return { 
-					x: this.format_x(
-						(previous_state.x === undefined ? this.props.x_start : previous_state.x) + amount,
-						this.props.cyclical ? cycle : clamp
-					) 
-				};
-			}
+		this.broadcast(
+			this.format_x(
+				(this.props.x === undefined ? this.props.x_start : this.props.x) + amount,
+				this.props.cyclical ? cycle : clamp
+			),
+			this.props.y
 		);
 	}
 
 	offset_y(e, dir) {
 		let amount = this.step_y_amount(e) * dir * Math.sign(this.props.y_end - this.props.y_start);
-		this.setState(
-			previous_state => {
-				return { 
-					y: this.format_y(
-						(previous_state.y === undefined ? this.props.y_start : previous_state.y) + amount,
-						this.props.cyclical ? cycle : clamp
-					) 
-				};
-			}
+		this.broadcast(
+			this.props.x,
+			this.format_y(
+				(this.props.y === undefined ? this.props.y_start : this.props.y) + amount,
+				this.props.cyclical ? cycle : clamp
+			)
 		);
 	}
 

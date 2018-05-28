@@ -29,9 +29,7 @@ export {
 	PadTooltip,
 	PolarPad,
 	PolarPadGrid,
-	PolarPadHandle,
-	BandPad,
-	BandPadProgress
+	PolarPadHandle
 } from './Pad';
 
 export {

@@ -1,31 +1,31 @@
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
+import memoize from 'memoize-one';
 
 import { PolarSurface } from '../Surface';
 
 import { to_step } from '../util/math';
 import { noop } from '../util/functions';
 
+const r_scale = memoize(
+	(start, end) => scaleLinear()
+		.domain([0, 50])
+		.range([start, end])
+		.clamp(true)
+);
+
+const t_scale = memoize(
+	(start, end) => scaleLinear()
+		.domain([-Math.PI, Math.PI])
+		.range([start, end])
+		.clamp(true)
+);
+
 const initial_state = {
 	interacting: false
 };
 
 class PolarPad extends React.PureComponent {
-
-	static getDerivedStateFromProps(props) {
-		return {
-			r: props.r,
-			t: props.t,
-			r_scale: scaleLinear()
-				.domain([0, 50])
-				.range([props.r_start, props.r_end])
-				.clamp(true),
-			t_scale: scaleLinear()
-				.domain([-Math.PI, Math.PI])
-				.range([props.t_start, props.t_end])
-				.clamp(true)
-		};
-	}
 
 	constructor(props) {
 
@@ -53,36 +53,29 @@ class PolarPad extends React.PureComponent {
 
 	onChange({ r, t }) {
 
-		let r_val = to_step(this.state.r_scale(r), this.props.r_step, this.props.r_precision);
-		let t_val = to_step(this.state.t_scale(t), this.props.t_step, this.props.t_precision);
+		let r_val = to_step(r_scale(this.props.r_start, this.props.r_end)(r), this.props.r_step, this.props.r_precision);
+		let t_val = to_step(t_scale(this.props.t_start, this.props.t_end)(t), this.props.t_step, this.props.t_precision);
 
 		// don't update state with the same values
-		if (r_val === this.state.r && t_val === this.state.t) {
+		if (r_val === this.props.r && t_val === this.props.t) {
 			return; 
 		}
 
-		this.setState({
-			r: r_val,
+		this.props.onChange({
+			r: r_val, 
 			t: t_val
-		}, () => {
-			this.props.onChange({
-				r: this.state.r, 
-				t: this.state.t 
-			}, this.props.property)
-		});
+		}, this.props.property);
 	}
 
 	render() {
 
 		let {
-			r,
-			t,
-			interacting,
-			r_scale,
-			t_scale
+			interacting
 		} = this.state;
 
 		let {
+			r,
+			t,
 			r_step,
 			t_step,
 		} = this.props;
@@ -100,8 +93,8 @@ class PolarPad extends React.PureComponent {
 							child => React.cloneElement(child, {
 								r: r,
 								t: t,
-								r_scale: r_scale,
-								t_scale: t_scale,
+								r_scale: r_scale(this.props.r_start, this.props.r_end),
+								t_scale: t_scale(this.props.t_start, this.props.t_end),
 								r_step: r_step,
 								t_step: t_step,
 								interacting: interacting,

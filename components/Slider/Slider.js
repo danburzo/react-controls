@@ -11,13 +11,6 @@ const initial_state = {
 
 class Slider extends React.Component {
 
-	static getDerivedStateFromProps(props, current_state) {
-		if (current_state.value !== props.value) {
-			return { value: props.value };
-		}
-		return null;
-	} 
-
 	constructor(props) {
 
 		super(props);
@@ -31,24 +24,11 @@ class Slider extends React.Component {
 		this.state = initial_state;
 	}
 
-	componentDidUpdate(prev_props, prev_state) {
-		// If update occured because of outside props, don't trigger onChange
-		if (this.state.value !== prev_state.value && prev_props.value === this.props.value) {
-			this.props.onChange(this.state.value, this.props.property);
-		}
-	}
-
 	change({x, y}) {
-
 		let value = this.props.vertical ? y : x;
-
-		this.setState(
-			previous_state => {
-				// Avoid unnecessary renders 
-				// when value has not actually changed
-				return value === previous_state.value ? null : { value: value }
-			}
-		);
+		if (value !== this.props.value) {
+			this.props.onChange(value, this.props.property);
+		}
 	}
 
 	start(e) {
@@ -79,11 +59,11 @@ class Slider extends React.Component {
 			start,
 			end,
 			increment,
-			property
+			property,
+			value
 		} = this.props;
 
 		let {
-			value,
 			interacting
 		} = this.state;
 

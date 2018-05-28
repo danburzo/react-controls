@@ -11,6 +11,7 @@ class ControlledComponentWrapper extends React.Component {
 
 	onChange(value, prop) {
 		// action('onChange')(value, prop);
+		console.log('onchange', value, prop);
 		this.setState({ [prop]: value });
 	}
 

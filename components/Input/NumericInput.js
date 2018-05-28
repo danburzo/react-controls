@@ -7,10 +7,6 @@ import NumericInputControls from './NumericInputControls';
 
 class NumericInput extends React.PureComponent {
 
-	static getDerivedStateFromProps({ value }) {
-		return { value };
-	}
-
 	constructor(props) {
 
 		super(props);
@@ -24,13 +20,7 @@ class NumericInput extends React.PureComponent {
 	}
 
 	change(value) {
-		this.setState({ value: this.format_user_input(value) });
-	}
-
-	componentDidUpdate() {
-		if (this.state.value !== this.props.value) {
-			this.props.onChange(this.state.value, this.props.property);
-		}
+		this.props.onChange(this.format_user_input(value), this.props.property);
 	}
 
 	format_user_input(value) {
@@ -53,12 +43,9 @@ class NumericInput extends React.PureComponent {
 			tabIndex,
 			onStart,
 			onEnd,
-			title
-		} = this.props;
-
-		let {
+			title,
 			value
-		} = this.state;
+		} = this.props;
 
 		return (
 				<TextInput
@@ -105,23 +92,12 @@ class NumericInput extends React.PureComponent {
 
 	offset(e, dir) {
 		let amount = this.step_amount(e) * dir * Math.sign(this.props.end - this.props.start);
-		this.setState(
-			current_state => {
-
-				let base_value = current_state.value !== undefined ? 
-					current_state.value : this.props.start;
-
-				let value = this.format_value(
-					base_value + amount, 
-					this.props.cyclical ? cycle : clamp
-				);
-
-				// Avoid unnecessary renders 
-				// when value has not actually changed
-				return value !== current_state.value ? {
-					value: value
-				} : null;
-			}
+		this.props.onChange(
+			this.format_value(
+				(this.props.value !== undefined ? this.props.value : this.props.start) + amount, 
+				this.props.cyclical ? cycle : clamp
+			),
+			this.props.property
 		);
 	}
 
