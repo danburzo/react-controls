@@ -4,6 +4,7 @@ import EventListener from 'react-event-listener';
 import { scaleLinear } from 'd3-scale';
 
 import { noop } from '../util/functions';
+import memoize from 'memoize-one';
 import { to_step, clamp, cycle } from '../util/math';
 
 import './Pad.css';
@@ -13,12 +14,18 @@ import { Surface } from '../Surface';
 const initial_state = {
 	x: undefined,
 	y: undefined,
-	interacting: false
+	interacting: false,
+	previous_props: {}
 };
 
+const scale = memoize(
+	(start, end) => scaleLinear()
+		.domain([0, 100])
+		.range([start, end])
+		.clamp(true)
+);
+
 class Pad extends React.PureComponent {
-
-
 
 	static getDerivedStateFromProps(props, current_state) {
 
@@ -27,26 +34,6 @@ class Pad extends React.PureComponent {
 		if (current_state.x !== props.x || current_state.y !== props.y) {
 			state['x'] = props.x;
 			state['y'] = props.y;
-			changed = true;
-		}
-
-		if (current_state.x_start !== props.x_start || current_state.x_end !== props.x_end) {
-			state['x_start'] = props.x_start;
-			state['x_end'] = props.x_end;
-			state['x_scale'] = scaleLinear()
-				.domain([0, 100])
-				.range([props.x_start, props.x_end])
-				.clamp(true);
-			changed = true;
-		}
-
-		if (current_state.y_start !== props.y_start || current_state.y_end !== props.y_end) {
-			state['y_start'] = props.y_start;
-			state['y_end'] = props.y_end;
-			state['y_scale'] = scaleLinear()
-				.domain([0, 100])
-				.range([props.y_start, props.y_end])
-				.clamp(true);
 			changed = true;
 		}
 
@@ -67,15 +54,6 @@ class Pad extends React.PureComponent {
 		this.state = initial_state;
 	}
 
-	componentDidUpdate(prev_props, prev_state) {
-		if (this.state.x !== prev_state.x || this.state.y !== prev_state.y) {
-			this.props.onChange({
-				x: this.state.x,
-				y: this.state.y
-			}, this.props.property);
-		}
-	}
-
 	format_x(value, method = clamp) {
 		return value !== undefined ? to_step(
 			method(value, this.props.x_start, this.props.x_end),
@@ -93,22 +71,10 @@ class Pad extends React.PureComponent {
 	}
 
 	change({x, y}) {
-		let x_val = this.format_x(this.state.x_scale(x));
-		let y_val = this.format_y(this.state.y_scale(y));
-
-		this.setState(
-			previous_state => {
-				// Avoid unnecessary renders 
-				// when values have not actually changed
-				return (
-					x_val === previous_state.x &&
-					y_val === previous_state.y
-				) ? null : { 
-					x: x_val,
-					y: y_val 
-				};
-			}
-		);
+		this.props.onChange({
+			x: this.format_x(scale(this.props.x_start, this.props.x_end)(x)),
+			y: this.format_y(scale(this.props.y_start, this.props.y_end)(y))
+		}, this.props.property);
 	}
 
 	start(e) {
@@ -130,22 +96,25 @@ class Pad extends React.PureComponent {
 	render() {
 
 		let {
+			x,
+			y,
 			cyclical,
 			tabIndex,
 			className,
 			x_step,
 			y_step,
 			x_precision,
-			y_precision
+			y_precision,
+			x_start,
+			x_end,
+			y_start,
+			y_end
 		} = this.props;
 
-		let {
-			x,
-			y,
-			interacting,
-			x_scale,
-			y_scale
-		} = this.state;
+		let { interacting } = this.state;
+
+		let x_scale = scale(x_start, x_end);
+		let y_scale = scale(y_start, y_end);
 
 		return (
 			<div 

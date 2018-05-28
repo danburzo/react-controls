@@ -33,8 +33,9 @@
   },
   "dependencies": {
     "d3-scale": "^2.0.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "memoize-one": "^3.1.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-event-listener": "^0.5.3"
   },
   "scripts": {

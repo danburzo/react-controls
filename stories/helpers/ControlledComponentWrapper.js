@@ -10,7 +10,7 @@ class ControlledComponentWrapper extends React.Component {
 	}
 
 	onChange(value, prop) {
-		action('onChange')(value, prop);
+		// action('onChange')(value, prop);
 		this.setState({ [prop]: value });
 	}
 
@@ -21,8 +21,15 @@ class ControlledComponentWrapper extends React.Component {
 
 		let value = this.state[child.props.property] || 0;
 
+		let vprops;
+		if (typeof value === 'object') {
+			vprops = { ...value };
+		} else {
+			vprops = { value };
+		}
+
 		return (
-			<Component {...child.props} value={value} onChange={this.onChange}/>
+			<Component {...child.props} {...vprops} onChange={this.onChange}/>
 		);
 	}
 }

@@ -204,11 +204,13 @@ storiesOf('Slider', module)
 storiesOf('Pad', module)
 	.add('Basic Pad', () => {
 		return (
-			<Pad onChange={action('onChange')}>
+		<ControlledComponentWrapper>
+			<Pad property='mypad'>
 				<PadHandle/>
 				<PadGrid x_step='10' y_step='10'/>
 				<PadTooltip/>
 			</Pad>
+		</ControlledComponentWrapper>
 		);
 	})
 	.add('Basic PolarPad', () => {
