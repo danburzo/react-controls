@@ -5,47 +5,94 @@ import { noop, returnTrue, identity } from '../util/functions';
 class TextInput extends React.Component {
 
 	static getDerivedStateFromProps(props, current_state) {
-		if (props.value !== current_state.formatted_value) {
-			return {
-				value: props.value,
-				formatted_value: props.format(props.value),
-				transient_value: props.value
-			};
-		}
-		return null;
+		return current_state.interacting ? null : {
+			value: props.format(props.value)
+		};
 	}
 
 	constructor(props) {
-
+		
 		super(props);
 
+		this.start = this.start.bind(this);
 		this.change = this.change.bind(this);
+		this.end = this.end.bind(this);
+
 		this.handleKeys = this.handleKeys.bind(this);
 		this.register = this.register.bind(this);
-		this.commit = this.commit.bind(this);
 
 		this.state = {};
-
 	}
 
-	componentDidUpdate(previous_props, previous_state) {
-		if (this.state.value === previous_state.value) {
-			return;
+	start(e) {
+		this.setState({
+			interacting: true
+		}, () => {
+			this.props.onStart(e);
+		});
+	}
+
+	end(e) {
+		this.setState({
+			interacting: false
+		}, () => {
+			this.props.onEnd(e);
+		});
+	}
+
+	broadcast(value) {
+		if (value !== this.props.value) {
+			this.props.onChange(value, this.props.property);
 		}
-		if (this.state.value !== this.props.value) {
-			this.props.onChange(this.state.value, this.props.property);
-		}
+	}
+
+	commit(e) {
+		this.setState({
+			value: this.props.format(this.props.value)
+		});
 	}
 
 	change(e) {
 		let input_value = e.target.value;
-		let state = { transient_value: input_value };
+		this.setState({
+			value: input_value
+		});
 		if (this.props.valid(input_value)) {
-			state['value'] = input_value;
-			state['formatted_value'] = this.props.format(input_value);
+			this.broadcast(input_value);
 		}
-		this.setState(state);
 	}
+
+	render() {
+
+		let {
+			className,
+			tabIndex,
+			title
+		} = this.props;
+
+		let {
+			value
+		} = this.state;
+
+		return (
+			<div className={ `uix-input ${ className || '' }` }>
+				<input
+					tabIndex={ tabIndex }
+					value={ value === undefined ? '' : value }
+					onChange={ this.change }
+					onKeyDown={ this.handleKeys }
+					onFocus={ this.start }
+					onBlur={ this.end }
+					ref={ this.register } 
+					title={ title }
+				/>
+				{ this.props.children }
+			</div>
+		);
+	}
+
+	// Keyboard shortcuts
+	// -----------------------------------------
 
 	handleKeys(e) {
 		let handled = true;
@@ -67,47 +114,11 @@ class TextInput extends React.Component {
 		}
 	}
 
-	commit(e) {
-		this.setState(
-			current_state => {
-				return current_state.transient_value !== current_state.formatted_value ? 
-					{ transient_value: current_state.formatted_value } : null;
-			}, 
-			() => this.props.onEnd(e)
-		);
-	}
+	// Autofocus
+	// -----------------------------------------
 
 	register(input) {
 		input && this.props.autofocus && input.focus();
-	}
-
-	render() {
-
-		let {
-			className,
-			tabIndex,
-			title
-		} = this.props;
-
-		let {
-			transient_value
-		} = this.state;
-
-		return (
-			<div className={ `uix-input ${ className || '' }` }>
-				<input
-					tabIndex={ tabIndex }
-					value={ transient_value === undefined ? '' : transient_value }
-					onChange={ this.change }
-					onKeyDown={ this.handleKeys }
-					onFocus={ this.props.onStart }
-					onBlur={ this.commit }
-					ref={ this.register } 
-					title={ title }
-				/>
-				{ this.props.children }
-			</div>
-		);
 	}
 }
 
