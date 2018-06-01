@@ -5,9 +5,13 @@ import { noop, returnTrue, identity } from '../util/functions';
 class TextInput extends React.Component {
 
 	static getDerivedStateFromProps(props, current_state) {
-		return current_state.interacting ? null : {
-			value: props.format(props.value)
-		};
+		if (props.value !== current_state.previous_value) {
+			return {
+				previous_value: props.value,
+				value: props.format(props.value)
+			}
+		}
+		return null;
 	}
 
 	constructor(props) {

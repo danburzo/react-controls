@@ -3,9 +3,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
+import { withState } from '@dump247/storybook-state';
 
 // helpers
-import ControlledComponentWrapper from './helpers/ControlledComponentWrapper';
 import CustomSelectionUI from './helpers/CustomSelectionUI';
 import PortalWrapper from './helpers/PortalWrapper';
 
@@ -100,61 +100,64 @@ storiesOf('Position', module)
 	})
 
 storiesOf('Slider', module)
-	.add('Basic Slider', () => {
+	.add('Basic Slider', withState({ value: undefined })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
-			<Slider onChange={action('onChange')}>
+			<Slider 
+				value={store.state.value} 
+				onChange={onchange}
+			>
 				<SliderTooltip/>
 				<SliderHandle/>
 				<SliderProgress/>
 				<SliderGrid/>
 			</Slider>
 		);
-	})
-	.add('Basic Slider With Grid', () => {
+	}))
+	.add('Basic Slider With Grid', withState({ value: undefined })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
+
 		return (
-			<Slider onChange={action('onChange')} step='10'>
+			<Slider
+				value={store.state.value} 
+				onChange={onchange} 
+				step='10'
+			>
 				<SliderTooltip/>
 				<SliderHandle/>
 				<SliderProgress/>
 				<SliderGrid/>
 			</Slider>
 		);
-	})
-	.add('Basic Slider, cyclical', () => {
+	}))
+	.add('Basic Slider, cyclical', withState({ value: undefined })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
+
 		return (
-			<Slider onChange={action('onChange')} cyclical>
+			<Slider onChange={onchange} value={store.state.value} cyclical>
 				<SliderTooltip/>
 				<SliderHandle/>
 				<SliderProgress/>
 			</Slider>
 		);
-	})
-	.add('Basic Slider, Controlled', () => {
-		return (
-			<ControlledComponentWrapper>
-				<Slider property='myslider'>
-					<SliderTooltip/>
-					<SliderHandle/>
-					<SliderProgress/>
-				</Slider>
-			</ControlledComponentWrapper>
-		);
-	})
-	.add('Basic Slider, cyclical Controlled', () => {
-		return (
-			<ControlledComponentWrapper>
-				<Slider property='myslider' cyclical>
-					<SliderTooltip/>
-					<SliderHandle/>
-					<SliderProgress/>
-				</Slider>
-			</ControlledComponentWrapper>
-		);
-	})
-	.add('Vertical Slider', () => {
+	}))
+	.add('Vertical Slider', withState({ value: undefined })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
 			<div style={{ height: '200px'}}>
-				<Slider vertical onChange={action('onChange')} >
+				<Slider vertical value={store.state.value} onChange={onchange} >
 					<SliderTooltip/>
 					<SliderHandle/>
 					<SliderProgress/>
@@ -162,65 +165,85 @@ storiesOf('Slider', module)
 				</Slider>
 			</div>
 		);
-	})
-	.add('Multiple vertical sliders', () => {
+	}))
+	.add('Multiple vertical sliders', withState({ value: undefined })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
 			<div className='equalizer'>
 				{
 					(new Array(16)).fill(0).map(
 						(v, idx) => 
-							<Slider key={idx} vertical>
+							<Slider key={idx} vertical onChange={onchange} value={store.state.value}>
 								<SliderProgress/>
 							</Slider>
 					)
 				}
 			</div>
 		);
-	})
-	.add('Start: 1, End: 10', () => {
+	}))
+	.add('Start: 1, End: 10', withState({ value: 3 })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
-			<Slider start='1' end='10' value='3' onChange={action('onChange')}>
+			<Slider start='1' end='10' value={store.state.value} onChange={onchange}>
 				<SliderHandle/>
 			</Slider>
 		);
-	})
-	.add('Start: 10, End: 1', () => {
+	}))
+	.add('Start: 10, End: 1', withState({ value: 3 })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
-			<Slider start='10' end='1' value='3' onChange={action('onChange')}>
+			<Slider start='10' end='1' value={store.state.value} onChange={onchange}>
 				<SliderHandle/>
 			</Slider>
 		);
-	})
-	.add('Step: 0.33, Precision: 2', () => {
+	}))
+	.add('Step: 0.33, Precision: 2', withState({ value: 3 })(({ store }) => {
+		const onchange = value => {
+			action('onChange')(value);
+			store.set({ value });
+		};
 		return (
-			<Slider step='0.33' precision='2' value='3' onChange={action('onChange')}>
+			<Slider step='0.33' precision='2' value={store.state.value} onChange={onchange}>
 				<SliderHandle/>
 			</Slider>
 		);
-	});
+	}));
 
 storiesOf('Pad', module)
-	.add('Basic Pad', () => {
+	.add('Basic Pad', withState({ x: 0, y: 0 })(({ store }) => {
+		const onchange = (value, prop) => {
+			action('onChange')(value, prop);
+			store.set(value);
+		};
 		return (
-		<ControlledComponentWrapper>
-			<Pad property='mypad'>
+			<Pad property='mypad' onChange={onchange} x={store.state.x} y={store.state.y}>
 				<PadHandle/>
 				<PadGrid x_step='10' y_step='10'/>
 				<PadTooltip/>
 			</Pad>
-		</ControlledComponentWrapper>
 		);
-	})
-	.add('Basic PolarPad', () => {
+	}))
+	.add('Basic PolarPad', withState({ r: 0, t: 0 })(({ store }) => {
+		const onchange = (value, prop) => {
+			action('onChange')(value, prop);
+			store.set(value);
+		};
 		return (
-			<ControlledComponentWrapper>
-				<PolarPad property='mypad' r_step='10' t_step='10'>
-					<PolarPadHandle/>
-					<PolarPadGrid />
-				</PolarPad>
-			</ControlledComponentWrapper>
+			<PolarPad property='mypad' r_step='10' t_step='10' r={store.state.r} t={store.state.t} onChange={onchange}>
+				<PolarPadHandle/>
+				<PolarPadGrid />
+			</PolarPad>
 		);
-	});
+	}));
 
 storiesOf('Surface', module)
 	.add('Basic Surface', () => {
@@ -242,17 +265,20 @@ storiesOf('Surface', module)
 
 
 storiesOf('Input', module)
-	.add('TextInput', () => {
+	.add('TextInput', withState({ value: 'caca' })(({ store }) => {
+		const onchange = (value, prop) => {
+			action('onChange')(value, prop);
+			store.set({ value });
+		};
+		const isNumber = value => value.match(/^\d+$/);
 		return (
 			<TextInput 
-				value='caca'
+				value={store.state.value}
 				onChange={action('onChange')}
-				valid={
-					value => value.match(/^\d+$/)
-				}
+				valid={isNumber}
 			/>
 		);
-	})
+	}))
 	.add('NumericInput', () => {
 		return <NumericInput onChange={action('onChange')}>
 			<NumericInputControls/>
@@ -269,13 +295,6 @@ storiesOf('Input', module)
 		>
 			<NumericInputControls/>
 		</NumericInput>;
-	})
-	.add('NumericInput, Controlled', () => {
-		return (
-			<ControlledComponentWrapper>
-				<NumericInput property='some_property'/>
-			</ControlledComponentWrapper>
-		);
 	});
 
 storiesOf('List', module)
@@ -321,59 +340,6 @@ storiesOf('MultiSlider', module)
 			<MultiSliderHandle property='prop2'/>
 		</MultiSlider>
 	});
-
-storiesOf('onselect', module)
-	.add('onselect', () => {
-		class MyCo extends React.Component {
-			constructor(props) {
-				super(props);
-				this.state = {
-					rects: null
-				};
-			}
-
-			select(e) {
-				let sel = window.getSelection();
-				let rects = sel.getRangeAt(0).getClientRects();
-				this.setState({
-					rects: rects
-				})
-			}
-			render() {
-
-				let rects = this.state.rects;
-
-				let tooltips = null;
-				if (rects) {
-					tooltips = rects.map(rect => <div style={
-						{
-							width: rect.width + 'px',
-							height: rect.height + 'px',
-							top: rect.top + 'px',
-							left: rect.left + 'px',
-							position: 'absolute',
-							pointerEvents: 'none',
-							border: '1px solid red'
-						}
-					}>
-						
-					</div>);
-				}
-
-				return (
-					<div>
-						<div tabIndex='0' onSelect={this.select.bind(this)}>
-							<p>It is a long established fact that a reader will be distracted</p>
-							<p>by the readable content of a page when looking at its layout. </p>
-							<p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p></div>
-						{ tooltips }
-					</div>
-				)
-			}
-		}
-
-		return <MyCo/>
-	})
 
 storiesOf('Popup', module)
 	.add('basic', () => 
