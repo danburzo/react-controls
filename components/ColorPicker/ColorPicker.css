@@ -1,0 +1,83 @@
+.uix-colorpicker {
+	width: 256px;
+	padding: 0 0.5em;
+	border: 1px solid #ccc;
+}
+
+.uix-colorpicker__section {
+	margin: 0.5em 0;
+}
+
+.uix-colorpicker .uix-colorpad {
+	width: 100%;
+	height: 160px;
+}
+
+.uix-colorpicker .uix-pad__handle {
+	border: 1px solid #fff;
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.5) inset;
+	box-sizing: border-box;
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+}
+
+.uix-colorpicker .uix-colorpad:focus .uix-pad__handle {
+	border-color: royalblue;
+}
+
+.uix-colorpicker .uix-slider {
+	width: 100%;
+	height: 1em;
+	border-radius: 0;
+}
+
+.uix-colorpicker .uix-slider__handle {
+	background: #fff;
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.75);
+	border: none;
+	border-radius: 50%;
+	width: 0.5em;
+	height: 0.5em;
+}
+
+.uix-colorpicker .uix-slider:focus .uix-slider__handle {
+	outline: none;
+	background-color: red !important;
+}
+
+.uix-colorpicker .uix-slider .uix-colorband {
+	position: absolute;
+}
+
+.uix-colorpicker .uix-colorvariations .uix-list__item {
+	flex: 1 1 auto;
+}
+
+.uix-colorpicker .uix-colorvariations .uix-swatch {
+	height: 1em;
+	width: 100%;
+}
+
+.uix-colorpicker .uix-colorvariations {
+	display: flex;
+}
+
+.uix-colorpicker__section--current {
+	display: flex;
+	justify-content: space-between;
+}
+
+.uix-colorpicker__section--current > * {
+	margin-right: 0.5em;
+}
+
+.uix-colorpicker__section--current :last-child {
+	margin-right: 0;
+}
+
+.uix-colorpicker__section--current .uix-swatch {
+	height: 1.5em;
+	flex: 1 1 auto;
+	flex-basis: 2;
+}

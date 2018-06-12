@@ -24,6 +24,7 @@
     "babel-preset-react": "^6.24.1",
     "npm-run-all": "^4.1.2",
     "postcss": "^6.0.21",
+    "react-color": "^2.14.1",
     "rollup": "^0.58.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-css-bundle": "^1.0.1",
@@ -33,7 +34,10 @@
     "why-did-you-update": "^0.1.0"
   },
   "dependencies": {
+    "culori": "^0.3.0",
+    "culori-scales": "^1.0.5",
     "d3-scale": "^2.0.0",
+    "memoize-one": "^3.1.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-event-listener": "^0.6.0"

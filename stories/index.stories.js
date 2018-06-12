@@ -9,6 +9,14 @@ import ControlledComponentWrapper from './helpers/ControlledComponentWrapper';
 import CustomSelectionUI from './helpers/CustomSelectionUI';
 import PortalWrapper from './helpers/PortalWrapper';
 
+import culoriscales from 'culori-scales';
+import { colorsNamed, formatter } from 'culori';
+
+let { scales } = culoriscales;
+let hex = formatter('hex');
+
+import { SketchPicker } from 'react-color';
+
 import { 
 	Position,
 	Surface,
@@ -37,7 +45,17 @@ import {
 	MultiSliderHandle,
 	Popup,
 	Portal,
-	Select
+	Select,
+	GradientSlider,
+	ColorPicker,
+	Swatch,
+	SwatchList,
+	ColorBand,
+	HueBand,
+	CheckerboardBand,
+	ColorInput,
+	ColorTextInput,
+	ColorVariations
 } from '../components';
 
 import './style.css';
@@ -474,4 +492,138 @@ storiesOf("Portal", module)
 			</Portal>
 			<div className='portal-reference'></div>
 		</div>;
+	});
+
+storiesOf('Swatch', module)
+	.add('Basic swatch', () => 
+		<Swatch color='#000' title='Black' onSelect={action('onSelect')}/>
+	)
+	.add('ColorBrewer swatches', () => {
+		return (
+			<div>
+				<h1>Culori scales</h1>
+
+				{ console.log(scales.Magma) }
+
+			{
+				Object.keys(scales).map(scale =>
+					<div>
+						<h2>{scale}</h2>
+						{ scales[scale].map(c => <Swatch color={hex(c)}/>) }
+					</div>
+				)
+			}
+			</div>
+		);
 	})
+	.add('Named colors', () => {
+
+		return (
+			<div>
+				<h1>Named colors</h1>
+				{
+					Object.keys(colorsNamed).map(c => 
+						<Swatch key={c} color={hex(c)} title={c}/>
+					)
+				}
+			</div>
+		);
+	});
+
+storiesOf('SwatchList', module)
+	.add('Many swatchlists', () => {
+		return <ControlledComponentWrapper>
+			<SwatchList property='some_property'>
+				{
+					scales['YlGn'].map(
+						c => <Swatch color={c} value={c} key={c}/>
+					)
+				}
+			</SwatchList>
+			<SwatchList property='some_property'>
+				{
+					scales['RdBu'].map(
+						c => <Swatch color={c} value={c} key={c}/>
+					)
+				}
+			</SwatchList>
+		</ControlledComponentWrapper>
+	})
+
+storiesOf('Color Picker', module)
+	.add('Basic Color Picker', () => {
+		// return <ControlledComponentWrapper>
+		// 	<ColorPicker property='some_property' onStart={action('onStart')} onEnd={action('onEnd')}/>
+		// </ControlledComponentWrapper>;
+		return <ColorPicker/>;
+	})
+	.add('react-color (Sketch)', () => {
+		return <SketchPicker/>;
+	});
+
+
+storiesOf('GradientSlider', module)
+	.add('Basic GradientSlider', () => {
+		return <GradientSlider/>;
+	});
+
+storiesOf('ColorBand', module)
+	.add('HueBand', () => 
+		<div className='colorband-container'>
+			<HueBand/>
+		</div>
+	)
+	.add('CheckerboardBand', () => 
+		<div className='colorband-container'>
+			<CheckerboardBand/>
+		</div>
+	);
+
+
+storiesOf('ColorInput', module)
+	.add('ColorInput', () => {
+		return <ColorInput
+			current={
+				value => <Swatch color={value}/>
+			}
+		>
+			<ColorPicker/>
+		</ColorInput>
+	})
+	.add('ColorInput controlled', () => {
+		return <ControlledComponentWrapper onChange={action('onChange')}>
+			<ColorInput
+				property='some_property'
+				current={
+					value => <Swatch color={value}/>
+				}
+			>
+				<ColorPicker/>
+			</ColorInput>
+		</ControlledComponentWrapper>
+	})
+	.add('ColorInput in portal', () => {
+		return <ControlledComponentWrapper onChange={action('onChange')}>
+
+			<ColorInput
+				property='some_property'
+				current={
+					value => <Swatch color={value}/>
+				}
+				target={document.body}
+			>
+				<ColorPicker/>
+			</ColorInput>
+
+		</ControlledComponentWrapper>
+	})
+	.add('ColorTextInput', () => {
+		return <ColorTextInput 
+			value='#000'
+			format='hex'
+			onChange={action('onChange')}
+		/>
+	});
+
+storiesOf('ColorVariations', module)
+	.add('Basic', () => <ColorVariations/>);

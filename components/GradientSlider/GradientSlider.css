@@ -1,0 +1,19 @@
+.uix-gradient {
+	height: 1em;
+	position: relative;
+}
+
+.uix-gradient .uix-spectrum,
+.uix-gradient .uix-slider {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	bottom: auto;
+	right: auto;
+}
+
+.uix-gradient .uix-multislider {
+	background: transparent;
+}

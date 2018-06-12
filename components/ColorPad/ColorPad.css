@@ -1,0 +1,27 @@
+.uix-colorpad {
+	position: relative;
+}
+
+.uix-colorpad .uix-colorband {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.uix-colorpad .uix-pad {
+	background: transparent;
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.uix-colorpad .uix-pad__handle {
+	border: 1px solid #fff;
+}
+
+.uix-colorpad .uix-pad:focus .uix-pad__handle {
+	border-color: red;
+}

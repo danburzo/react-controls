@@ -1,0 +1,14 @@
+.uix-swatch {
+	height: 3em;
+	width: 3em;
+	display: inline-block;
+	position: relative;
+}
+
+.uix-swatch__inner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
