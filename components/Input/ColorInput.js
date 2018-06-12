@@ -4,7 +4,7 @@ import EventListener, { withOptions } from 'react-event-listener';
 
 import Popup from '../Popup/Popup';
 import Portal from '../Portal/Portal';
-import { invariant, noop } from '../util/functions';
+import { identity, noop } from '../util/functions';
 
 import './ColorInput.css';
 
@@ -151,7 +151,7 @@ ColorInput.defaultProps = {
 	shouldKeyUpEndInteraction: noop,
 	shouldKeyDownCancelInteraction: noop,
 	shouldKeyUpCancelInteraction: noop,
-	current: invariant
+	current: identity
 };
 
 export default ColorInput;
