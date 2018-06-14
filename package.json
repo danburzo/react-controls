@@ -22,8 +22,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.24.1",
+    "docz": "^0.2.3",
+    "gh-pages": "^1.2.0",
     "npm-run-all": "^4.1.2",
     "postcss": "^6.0.21",
+    "prop-types": "^15.6.1",
     "react-color": "^2.14.1",
     "rollup": "^0.58.0",
     "rollup-plugin-babel": "^3.0.3",
@@ -31,6 +34,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1",
+    "webpack-hot-client": "^4.0.3",
     "why-did-you-update": "^0.1.0"
   },
   "dependencies": {
@@ -47,6 +51,9 @@
     "storybook:start": "start-storybook --port 6001",
     "storybook:build": "build-storybook",
     "build": "rollup -c",
-    "build:watch": "rollup -c -w"
+    "build:watch": "rollup -c -w",
+    "docs:dev": "docz dev",
+    "docs:build": "docz build",
+    "docs:deploy": "yarn docs:build && gh-pages -d .docz/dist"
   }
 }

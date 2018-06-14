@@ -69,13 +69,11 @@ Along with its main use as a component library to be used directly, the code sho
 
 ## Development
 
-[CONTRIBUTING.md](./CONTRIBUTING.md)
+To develop uiuiui, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## See also
 
-* [uiuiui-color](https://github.com/danburzo/uiuiui-color)
-* [uiuiui-music](https://github.com/danburzo/uiuiui-music)
-* [uiuiui-patterns](https://github.com/danburzo/uiuiui-patterns)
+* [uiuiui-patterns](https://github.com/evercoder/uiuiui-patterns)
 
 ## Open Source
 

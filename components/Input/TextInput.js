@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { noop, returnTrue, identity } from '../util/functions';
 import './Input.css';
 
@@ -134,5 +136,9 @@ TextInput.defaultProps = {
 	format: identity
 	
 };
+
+TextInput.propTypes = {
+	
+}
 
 export default TextInput;
