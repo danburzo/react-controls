@@ -49,8 +49,12 @@
 		"build:watch": "rollup -c -w",
 		"docs:start": "docz dev",
 		"docs:build": "docz build",
-		"docs:deploy": "yarn docs:build && gh-pages -d .docz/dist",
-		"precommit": "pretty-quick --staged"
+		"docs:deploy": "yarn docs:build && gh-pages -d .docz/dist"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
 	},
 	"prettier": {
 		"bracketSpacing": true,
