@@ -12,9 +12,9 @@
 	],
 	"devDependencies": {
 		"@babel/core": "^7.1.5",
-		"@storybook/addon-actions": "^4.0.4",
-		"@storybook/addon-links": "^4.0.4",
-		"@storybook/react": "^4.0.4",
+		"@storybook/addon-actions": "^4.1.0-alpha.1",
+		"@storybook/addon-links": "^4.1.0-alpha.1",
+		"@storybook/react": "^4.1.0-alpha.1",
 		"autoprefixer": "^9.3.1",
 		"babel-loader": "^8.0.4",
 		"gh-pages": "^2.0.1",
