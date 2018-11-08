@@ -1,0 +1,61 @@
+---
+name: Slider
+---
+
+# Slider
+
+`Slider` is a high-level component that provides functionality similar to the HTML [`range` input][html-range], but with some extra perks. The [Storybook for `Slider`][storybook] for some examples.
+
+`Slider` uses [`Surface`](./Surface.md) under the hood to capture the user interaction, out of which it extracts the X or the Y coordinate, depending on whether it's a horizontal or vertical slider. It uses a linear scale from [`d3-scale`][d3-scale] to map between the percentage received from `Surface` and the slider's range, as defined by its `start` and `end` properties.
+
+## Properties
+
+| Property    | Type    | Default value | Notes                                                                                                                                                                               |
+| ----------- | ------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `property`  | Any     | _none_        | [An optional identifier][property] to pass along to the callback functions.                                                                                                         |
+| `className` | String  | _none_        | Any additional class names to pass to the component.                                                                                                                                |
+| `tabIndex`  | Integer | `0`           | The component's tab index.                                                                                                                                                          |
+| `cyclical`  | Boolean | `false`       | Whether the slider should cycle the value when reaching the interval edges.                                                                                                         |
+| `vertical`  | Boolean | `false`       | Whether the slider should be horizontal or vertical.                                                                                                                                |
+| `value`     | Number  | _none_        | The slider's initial value. Whenever the component receives a new value from its parent, it will reset the component's inner state to match that value.                             |
+| `start`     | Number  | `0`           | The _starting value_ for the range.                                                                                                                                                 |
+| `end`       | Number  | `100`         | The _end value_ for the range. It's not necessary to have `start < end`, as the Slider works well even with inverted ranges.                                                        |
+| `step`      | Number  | `1`           | The step to use when changing the value with the Up / Down arrow keys. For steps that are fractions, always use an appropriate `precision` as well, to avoid floating-point errors. |
+| `precision` | Number  | `0`           | The number of decimals to round the value to.                                                                                                                                       |
+| `increment` | Number  | none          | (Optional) number that defines the _increment step_ when the user presses the arrow keys. When not defined, the `step` property will be used for this purpose.                      |
+
+## CSS
+
+The `Slider` component has the class name **`uix-slider`**. It has by default a `1em` height, but this can be customized via CSS.
+
+## Children
+
+The `Slider` component accepts arbitrary children, which it passes along to the underlying [`Surface`](../Surface/README.md) component.
+
+It places a couple of useful properties on each child:
+
+| Property      | Type       | Notes                                                                                                                                                                                                                                                                                                                                           |
+| ------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`       | `number`   | This is the absolute value, which also gets sent on the `onChange` callback to the outside world. You may use this value to show a tooltip, as is the case of the `SliderTooltip` component.                                                                                                                                                    |
+| `scale`       | `function` | This is the [d3-scale][d3-scale] used to map the percentage received from `Surface` to the `Slider`'s range, as defined by its `start` and `end` numbers. Since the child is passed along to, and nested within, the `Surface` component, it's useful to get back that percentage with `scale.invert(value)` and style the child appropriately. |
+| `interacting` | `boolean`  | This tells the child whether the user is interacting with the Slider or not. You may use this flag to style the child appropriately.                                                                                                                                                                                                            |
+| `vertical`    | `boolean`  | Each child gets the parent Slider's orientation. When set to `true`, the slider is vertical. Otherwise it's a plain, horizontal, slider.                                                                                                                                                                                                        |
+
+### Build-in child components
+
+#### `SliderHandle`
+
+This component displays a handle positioned at the slider value's position. It has the class name **`uix-slider**handle`\_\_.
+
+#### `SliderProgress`
+
+This component fills part of the slider with a different color, depending on its value. It has the class name **`uix-slider**progress`\_\_.
+
+#### `SliderTooltip`
+
+This component displays the slider's value above the slider. It has the class name **`uix-slider**tooltip`\_\_.
+
+[html-range]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+[storybook]: https://danburzo.github.io/uiuiui/storybook-static/?selectedKind=Slider
+[d3-scale]: https://github.com/d3/d3-scale
+[property]: https://github.com/danburzo/react-recipes/blob/master/recipes/property-pattern.md
