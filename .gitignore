@@ -64,3 +64,4 @@ dist/
 yarn-error.log
 
 .docz
+.cache
