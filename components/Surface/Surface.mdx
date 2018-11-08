@@ -10,18 +10,18 @@ Surfaces are low-level components which provide the user interaction for other c
 
 ## Properties
 
-| Property      | Type     | Default                                     | Description                                                                                                                                                                                                                                    |
-| ------------- | -------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `className`   | String   | _empty_                                     | Additional CSS classes to add to the component.                                                                                                                                                                                                |
-| `property`    | Any      | _none_                                      | [An optional identifier][property] to pass along to the callback functions.                                                                                                                                                                    |
-| `passive`     | Boolean  | `false`                                     | Whether the Surface should be _active_ or _passive_. See clarification below.                                                                                                                                                                  |
-| `interacting` | Boolean  | `false`                                     | Whether the Surface should be interacting.                                                                                                                                                                                                     |
-| `x_scale`     | Scale    | `scaleLinear().range([0, 100]).clamp(true)` | The scale to use on the X axis.                                                                                                                                                                                                                |
-| `y_scale`     | Scale    | `scaleLinear().range([0, 100]).clamp(true)` | The scale to use on the Y axis.                                                                                                                                                                                                                |
-| `onChange`    | Function | _none_                                      | A callback function that's invoked whenever the user's coordinates change. It receives an object in the form `{x: …, y: …}` with X and Y as percentages. When the `property` prop is set, it will be passed back as the second argument.       |
-| `onStart`     | Function | _none_                                      | A callback function that's invoked when the user starts an interaction (e.g. the `mousedown` event). It receives the original DOM event as its first argument. When the `property` prop is set, it will be passed back as the second argument. |
-| `onEnd`       | Function | _none_                                      | A callback function that's invoked when the user ends an interaction (e.g. the `mouseup` event). It receives the original DOM event as its first argument. When the `property` prop is set, it will be passed back as the second argument.     |
-| `onInsert`    | Function | _none_                                      | A callback function that's invoked when the user triggers the _insert_ behavior (doubleclick event). When the `property` prop is set, it will be passed back as the second argument.                                                           |
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | String | _empty_ | Additional CSS classes to add to the component.|
+| `property`| Any| _none_| [An optional identifier][property] to pass along to the callback functions.|
+| `passive` | Boolean| `false` | Whether the Surface should be _active_ or _passive_. See clarification below.|
+| `interacting` | Boolean| `false` | Whether the Surface should be interacting. |
+| `x_scale` | Scale| `scaleLinear().range([0, 100]).clamp(true)` | The scale to use on the X axis.|
+| `y_scale` | Scale| `scaleLinear().range([0, 100]).clamp(true)` | The scale to use on the Y axis.|
+| `onChange`| Function | _none_| A callback function that's invoked whenever the user's coordinates change. It receives an object in the form `{x: …, y: …}` with X and Y as percentages. When the `property` prop is set, it will be passed back as the second argument. |
+| `onStart` | Function | _none_| A callback function that's invoked when the user starts an interaction (e.g. the `mousedown` event). It receives the original DOM event as its first argument. When the `property` prop is set, it will be passed back as the second argument. |
+| `onEnd` | Function | _none_| A callback function that's invoked when the user ends an interaction (e.g. the `mouseup` event). It receives the original DOM event as its first argument. When the `property` prop is set, it will be passed back as the second argument. |
+| `onInsert`| Function | _none_| A callback function that's invoked when the user triggers the _insert_ behavior (doubleclick event). When the `property` prop is set, it will be passed back as the second argument. |
 
 ### Active vs. Passive Surfaces
 
