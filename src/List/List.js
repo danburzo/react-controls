@@ -34,11 +34,34 @@ class List extends React.Component {
 }
 
 List.propTypes = {
+	/**
+	 * The component's tab index.
+	 */
 	tabIndex: PropTypes.number,
+
+	/**
+	 * Any additional class names to pass to the component.
+	 */
 	className: PropTypes.string,
+
+	/**
+	 * An optional identifier to pass along to the callback functions.
+	 */
 	property: PropTypes.string,
+
+	/**
+	 * The component's tab index.
+	 */
 	value: PropTypes.any,
+
+	/**
+	 * When the `property` prop is set, it will be passed back as the second argument.
+	 */
 	onChange: PropTypes.func,
+
+	/**
+	 * When the `property` prop is set, it will be passed back as the second argument.
+	 */
 	onSelect: PropTypes.func
 };
 

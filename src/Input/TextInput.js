@@ -109,17 +109,71 @@ class TextInput extends React.Component {
 }
 
 TextInput.propTypes = {
+	/**
+	 * The component's tab index.
+	 */
 	tabIndex: PropTypes.number,
+
+	/**
+	 * Any additional class names to pass to the component.
+	 */
 	className: PropTypes.string,
+
+	/**
+	 * Whether the component should autofocus when it's mounted in the DOM.
+	 */
 	autofocus: PropTypes.bool.isRequired,
+
+	/**
+	 * An optional identifier to pass along to the callback functions.
+	 */
 	property: PropTypes.string,
+
+	/**
+	 * The input's initial value. Whenever the component receives
+	 * a new value from its parent, it will reset the component's inner state
+	 * to match that value.
+	 */
 	value: PropTypes.string,
+
+	/**
+	 * When the `property` prop is set,
+	 * it will be passed back as the second argument.
+	 */
 	onChange: PropTypes.func,
+
+	/**
+	 * When the `property` prop is set,
+	 * it will be passed back as the second argument.
+	 */
 	onStart: PropTypes.func,
+
+	/**
+	 * When the `property` prop is set,
+	 * it will be passed back as the second argument.
+	 */
 	onEnd: PropTypes.func,
+
+	/**
+	 * When the `property` prop is set,
+	 * it will be passed back as the second argument.
+	 */
 	onPrev: PropTypes.func,
+
+	/**
+	 * When the `property` prop is set,
+	 * it will be passed back as the second argument.
+	 */
 	onNext: PropTypes.func,
+
+	/**
+	 *
+	 */
 	valid: PropTypes.func,
+
+	/**
+	 *
+	 */
 	format: PropTypes.func
 };
 
