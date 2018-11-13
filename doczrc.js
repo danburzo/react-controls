@@ -6,5 +6,17 @@ export default {
 	base: '/uiuiui/',
 	title: 'uiuiui',
 	hashRouter: true,
-	plugins: [css()]
+	plugins: [css()],
+	modifyBundlerConfig: function(config) {
+		config.module.rules
+			.filter(rule => 'src/dummy/examples/some.example.js'.match(rule.test))
+			.forEach(rule => {
+				rule.exclude.push(/\.example\.js$/);
+			});
+		config.module.rules.push({
+			test: /\.example\.js$/,
+			loader: 'raw-loader'
+		});
+		return config;
+	}
 };

@@ -53,8 +53,26 @@ class Position extends React.PureComponent {
 }
 
 Position.propTypes = {
+	/**
+	 * A callback function that's called on each mouse movement
+	 * with an object in the form of `{x: …, y: …, event: …}`.
+	 * When the `property` prop is set, it will be passed back
+	 * as the second argument.
+	 */
 	onChange: PropTypes.func,
+
+	/**
+	 * A callback function that's called
+	 * when the user finishes the interaction (the `mouseup` event)
+	 * with an object in the form of `{x: …, y: …, event: …}`.
+	 * When the `property` prop is set, it will be passed back
+	 * as the second argument.
+	 */
 	onEnd: PropTypes.func,
+
+	/**
+	 * An optional identifier to pass along to the callback functions.
+	 */
 	property: PropTypes.any
 };
 
