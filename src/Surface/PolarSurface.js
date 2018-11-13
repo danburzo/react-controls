@@ -1,6 +1,9 @@
+// Libs
 import React from 'react';
+import PropTypes from 'prop-types';
 import EventListener from 'react-event-listener';
 import { scaleLinear } from 'd3-scale';
+
 import scalePolar from '../util/scalePolar';
 import { noop } from '../util/functions';
 import Surface from './Surface';
@@ -50,13 +53,19 @@ const y_scale = scaleLinear()
 	.range([50, -50])
 	.clamp(true);
 
+PolarSurface.propTypes = {
+	onStart: PropTypes.func,
+	onChange: PropTypes.func,
+	onEnd: PropTypes.func,
+	passive: PropTypes.bool.isRequired,
+	interacting: PropTypes.bool.isRequired,
+	property: PropTypes.any
+};
+
 PolarSurface.defaultProps = {
 	onChange: noop,
-	onStart: undefined,
-	onEnd: undefined,
 	passive: false,
-	interacting: false,
-	property: undefined
+	interacting: false
 };
 
 export default PolarSurface;

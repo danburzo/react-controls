@@ -1,6 +1,9 @@
+// Libs
 import React from 'react';
+import PropTypes from 'prop-types';
 import EventListener from 'react-event-listener';
 import { scaleLinear } from 'd3-scale';
+
 import Position from '../Position/Position';
 import { noop } from '../util/functions';
 
@@ -107,9 +110,20 @@ class Surface extends React.PureComponent {
 	}
 }
 
+Surface.propTypes = {
+	property: PropTypes.any,
+	className: PropTypes.string,
+	onStart: PropTypes.func,
+	onChange: PropTypes.func,
+	onEnd: PropTypes.func,
+	onInsert: PropTypes.func,
+	x_scale: PropTypes.func.isRequired,
+	y_scale: PropTypes.func.isRequired,
+	passive: PropTypes.bool.isRequired,
+	interacting: PropTypes.bool
+};
+
 Surface.defaultProps = {
-	property: undefined,
-	className: undefined,
 	onStart: noop,
 	onEnd: noop,
 	onChange: noop,

@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import List from '../List/List';
 import ListItem from '../List/ListItem';
+import { noop } from '../util/functions';
 
 import './SwatchList.css';
-
-import { noop } from '../util/functions';
 
 class SwatchList extends React.Component {
 	render() {
@@ -23,8 +23,12 @@ class SwatchList extends React.Component {
 	}
 }
 
+SwatchList.propTypes = {
+	property: PropTypes.any,
+	onSelect: PropTypes.func
+};
+
 SwatchList.defaultProps = {
-	property: undefined,
 	onSelect: noop
 };
 

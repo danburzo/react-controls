@@ -61,7 +61,7 @@ SaturationValuePad.propTypes = {
 	onStart: PropTypes.func,
 	onChange: PropTypes.func,
 	onEnd: PropTypes.func,
-	property: PropTypes.func
+	property: PropTypes.any
 };
 
 SaturationValuePad.defaultProps = {

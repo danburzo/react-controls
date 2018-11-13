@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
 import { to_step } from '../util/math';
 import { noop } from '../util/functions';
@@ -97,13 +98,21 @@ class BandPad extends React.Component {
 	}
 }
 
+BandPad.propTypes = {
+	values: PropTypes.array,
+	bands: PropTypes.number.isRequired,
+	step: PropTypes.number.isRequired,
+	precision: PropTypes.number.isRequired,
+	onChange: PropTypes.func,
+	property: PropTypes.string
+};
+
 BandPad.defaultProps = {
 	values: new Array(36).fill(0),
 	bands: 36,
 	step: 1,
 	precision: 0,
-	onChange: noop,
-	property: undefined
+	onChange: noop
 };
 
 export default BandPad;

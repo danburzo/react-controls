@@ -173,30 +173,9 @@ ColorPicker.propTypes = {
 	onStart: PropTypes.func,
 	onChange: PropTypes.func,
 	onEnd: PropTypes.func,
-	property: PropTypes.string,
-	reactive: PropTypes.bool
-};
+	property: PropTypes.any,
 
-ColorPicker.defaultProps = {
-	/*
-		Style hooks
-	 */
-	className: undefined,
-
-	/*
-		Initial value
-	 */
-	value: 'rgba(255, 0, 0, 1)',
-
-	/*
-		Callbacks
-	 */
-	onChange: noop,
-	onStart: noop,
-	onEnd: noop,
-	property: undefined,
-
-	/*
+	/**
 		For this HSB color picker, having it update in response to 
 		a change in this.props.value, which would normally be
 		a serialized value (in HEX or RGBA format), wouild interfere
@@ -207,6 +186,14 @@ ColorPicker.defaultProps = {
 		To overcome this, we introduce the `reactive` flag that dictates
 		whether the color picker should update on `componentWillReceiveProps`.
 	 */
+	reactive: PropTypes.bool
+};
+
+ColorPicker.defaultProps = {
+	value: 'rgba(255, 0, 0, 1)',
+	onChange: noop,
+	onStart: noop,
+	onEnd: noop,
 	reactive: false
 };
 

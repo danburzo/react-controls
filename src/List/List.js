@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { noop } from '../util/functions';
 import './List.css';
 
@@ -32,11 +33,17 @@ class List extends React.Component {
 	}
 }
 
+List.propTypes = {
+	tabIndex: PropTypes.number,
+	className: PropTypes.string,
+	property: PropTypes.string,
+	value: PropTypes.any,
+	onChange: PropTypes.func,
+	onSelect: PropTypes.func
+};
+
 List.defaultProps = {
-	tabIndex: '0',
-	className: undefined,
-	property: undefined,
-	value: undefined,
+	tabIndex: 0,
 	onChange: noop,
 	onSelect: noop
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
+import PropTypes from 'prop-types';
+
 import PolarSurface from '../Surface/PolarSurface';
 import { to_step } from '../util/math';
 import { noop } from '../util/functions';
@@ -101,6 +103,21 @@ class PolarPad extends React.PureComponent {
 	}
 }
 
+PolarPad.propTypes = {
+	r: PropTypes.number,
+	r_start: PropTypes.number.isRequired,
+	r_end: PropTypes.number.isRequired,
+	r_step: PropTypes.number.isRequired,
+	r_precision: PropTypes.number.isRequired,
+	t: PropTypes.number.isRequired,
+	t_start: PropTypes.number.isRequired,
+	t_end: PropTypes.number.isRequired,
+	t_step: PropTypes.number.isRequired,
+	t_precision: PropTypes.number.isRequired,
+	onChange: PropTypes.func,
+	property: PropTypes.any
+};
+
 PolarPad.defaultProps = {
 	r: 0,
 	r_start: 0,
@@ -112,8 +129,7 @@ PolarPad.defaultProps = {
 	t_step: 1,
 	t_precision: 0,
 	t: 0,
-	onChange: noop,
-	property: undefined
+	onChange: noop
 };
 
 export default PolarPad;

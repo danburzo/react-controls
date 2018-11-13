@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import EventListener from 'react-event-listener';
+import PropTypes from 'prop-types';
+
 import { noop } from '../util/functions';
 
 import './Popup.css';
@@ -52,10 +54,16 @@ class Popup extends React.Component {
 	}
 }
 
+Popup.propTypes = {
+	property: PropTypes.any,
+	className: PropTypes.string,
+	tabIndex: PropTypes.number,
+	autofocus: PropTypes.bool.isRequired,
+	onClose: PropTypes.func
+};
+
 Popup.defaultProps = {
 	tabIndex: 0,
-	className: undefined,
-	property: undefined,
 	autofocus: false,
 	onClose: noop
 };

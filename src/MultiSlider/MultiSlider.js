@@ -1,5 +1,7 @@
 import React from 'react';
 import EventListener from 'react-event-listener';
+import PropTypes from 'prop-types';
+
 import Surface from '../Surface/Surface';
 import { noop } from '../util/functions';
 
@@ -63,6 +65,11 @@ class MultiSlider extends React.Component {
 		);
 	}
 }
+
+MultiSlider.propTypes = {
+	onChange: PropTypes.func,
+	onInsert: PropTypes.func
+};
 
 MultiSlider.defaultProps = {
 	onChange: noop,

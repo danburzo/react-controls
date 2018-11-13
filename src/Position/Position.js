@@ -55,7 +55,7 @@ class Position extends React.PureComponent {
 Position.propTypes = {
 	onChange: PropTypes.func,
 	onEnd: PropTypes.func,
-	property: PropTypes.string
+	property: PropTypes.any
 };
 
 Position.defaultProps = {

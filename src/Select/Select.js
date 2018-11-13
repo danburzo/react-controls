@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { noop, identity } from '../util/functions';
 
@@ -114,13 +115,17 @@ class Select extends React.Component {
 	}
 }
 
+Select.propTypes = {
+	property: PropTypes.any,
+	className: PropTypes.string,
+	value: PropTypes.number,
+	tabIndex: PropTypes.number,
+	target: PropTypes.object
+};
+
 Select.defaultProps = {
 	tabIndex: 0,
-	property: undefined,
-	className: undefined,
-	value: undefined,
-	onChange: noop,
-	target: undefined
+	onChange: noop
 };
 
 export default Select;

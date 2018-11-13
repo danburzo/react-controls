@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import EventListener, { withOptions } from 'react-event-listener';
+import PropTypes from 'prop-types';
 
 import Popup from '../Popup/Popup';
 import Portal from '../Portal/Portal';
@@ -136,9 +137,21 @@ class ColorInput extends React.Component {
 	}
 }
 
+ColorInput.propTypes = {
+	property: PropTypes.string,
+	value: PropTypes.string,
+	onChange: PropTypes.func,
+	onStart: PropTypes.func,
+	onEnd: PropTypes.func,
+	onCancel: PropTypes.func,
+	shouldKeyDownEndInteraction: PropTypes.func,
+	shouldKeyUpEndInteraction: PropTypes.func,
+	shouldKeyDownCancelInteraction: PropTypes.func,
+	shouldKeyUpCancelInteraction: PropTypes.func,
+	current: PropTypes.any
+};
+
 ColorInput.defaultProps = {
-	property: undefined,
-	value: undefined,
 	onChange: noop,
 	onStart: noop,
 	onEnd: noop,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import EventListener from 'react-event-listener';
 import { noop } from '../util/functions';
 import Pad from '../Pad/Pad';
@@ -137,20 +138,88 @@ class Slider extends React.Component {
 	}
 }
 
+Slider.propTypes = {
+	/**
+	 * [An optional identifier](https://github.com/danburzo/react-recipes/blob/master/recipes/property-pattern.md) to pass along to the callback functions.
+	 */
+	property: PropTypes.string,
+
+	/**
+	 *
+	 */
+	className: PropTypes.string,
+
+	/**
+	 *
+	 */
+	tabIndex: PropTypes.number,
+
+	/**
+	 *
+	 */
+	vertical: PropTypes.bool,
+
+	/**
+	 *
+	 */
+	cyclical: PropTypes.bool,
+
+	/**
+	 *
+	 */
+	value: PropTypes.number,
+
+	/**
+	 *
+	 */
+	start: PropTypes.number,
+
+	/**
+	 *
+	 */
+	end: PropTypes.number,
+
+	/**
+	 *
+	 */
+	step: PropTypes.number,
+
+	/**
+	 *
+	 */
+	precision: PropTypes.number,
+
+	/**
+	 *
+	 */
+	increment: PropTypes.number,
+
+	/**
+	 *
+	 */
+	onStart: PropTypes.func,
+
+	/**
+	 *
+	 */
+	onChange: PropTypes.func,
+
+	/**
+	 *
+	 */
+	onEnd: PropTypes.func
+};
+
 Slider.defaultProps = {
-	className: undefined,
-	property: undefined,
 	tabIndex: 0,
 
 	vertical: false,
 	cyclical: false,
 
-	value: undefined,
 	start: 0,
 	end: 100,
 	step: 1,
 	precision: 0,
-	increment: undefined,
 
 	onChange: noop,
 	onStart: noop,

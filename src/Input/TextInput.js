@@ -108,24 +108,31 @@ class TextInput extends React.Component {
 	}
 }
 
+TextInput.propTypes = {
+	tabIndex: PropTypes.number,
+	className: PropTypes.string,
+	autofocus: PropTypes.bool.isRequired,
+	property: PropTypes.string,
+	value: PropTypes.string,
+	onChange: PropTypes.func,
+	onStart: PropTypes.func,
+	onEnd: PropTypes.func,
+	onPrev: PropTypes.func,
+	onNext: PropTypes.func,
+	valid: PropTypes.func,
+	format: PropTypes.func
+};
+
 TextInput.defaultProps = {
 	tabIndex: 0,
-	className: undefined,
 	autofocus: false,
-	property: undefined,
-
-	value: undefined,
-
 	onChange: noop,
 	onStart: noop,
 	onEnd: noop,
 	onPrev: noop,
 	onNext: noop,
-
 	valid: returnTrue,
 	format: identity
 };
-
-TextInput.propTypes = {};
 
 export default TextInput;

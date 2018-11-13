@@ -1,6 +1,8 @@
 import React from 'react';
 import EventListener from 'react-event-listener';
 import { scaleLinear } from 'd3-scale';
+import PropTypes from 'prop-types';
+
 import { noop } from '../util/functions';
 import { to_step, clamp, cycle } from '../util/math';
 import Surface from '../Surface/Surface';
@@ -242,8 +244,29 @@ class Pad extends React.PureComponent {
 	}
 }
 
+Pad.propTypes = {
+	property: PropTypes.any,
+	x_start: PropTypes.number.isRequired,
+	x_end: PropTypes.number.isRequired,
+	y_start: PropTypes.number.isRequired,
+	y_end: PropTypes.number.isRequired,
+	x_step: PropTypes.number.isRequired,
+	y_step: PropTypes.number.isRequired,
+	x_precision: PropTypes.number.isRequired,
+	y_precision: PropTypes.number.isRequired,
+	x_increment: PropTypes.number,
+	y_increment: PropTypes.number,
+	x: PropTypes.number,
+	y: PropTypes.number,
+	tabIndex: PropTypes.number,
+	className: PropTypes.string,
+	cyclical: PropTypes.bool.isRequired,
+	onChange: PropTypes.func,
+	onStart: PropTypes.func,
+	onEnd: PropTypes.func
+};
+
 Pad.defaultProps = {
-	property: undefined,
 	x_start: 0,
 	x_end: 100,
 	y_start: 0,
@@ -252,12 +275,7 @@ Pad.defaultProps = {
 	y_step: 1,
 	x_precision: 0,
 	y_precision: 0,
-	x_increment: undefined,
-	y_increment: undefined,
-	x: undefined,
-	y: undefined,
 	tabIndex: 0,
-	className: undefined,
 	cyclical: false,
 	onChange: noop,
 	onStart: noop,

@@ -2,6 +2,10 @@
 name: Slider
 ---
 
+import { PropsTable, Playground } from 'docz';
+
+import Slider from './Slider';
+
 # Slider
 
 `Slider` is a high-level component that provides functionality similar to the HTML [`range` input][html-range], but with some extra perks. The [Storybook for `Slider`][storybook] for some examples.
@@ -10,9 +14,11 @@ name: Slider
 
 ## Properties
 
+<PropsTable of={Slider}/>
+
 | Property    | Type    | Default value | Notes                                                                                                                                                                               |
 | ----------- | ------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `property`  | Any     | _none_        | [An optional identifier][property] to pass along to the callback functions.                                                                                                         |
+| `property`  | Any     | _none_        |                                                                                                    |
 | `className` | String  | _none_        | Any additional class names to pass to the component.                                                                                                                                |
 | `tabIndex`  | Integer | `0`           | The component's tab index.                                                                                                                                                          |
 | `cyclical`  | Boolean | `false`       | Whether the slider should cycle the value when reaching the interval edges.                                                                                                         |
@@ -58,4 +64,3 @@ This component displays the slider's value above the slider. It has the class na
 [html-range]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
 [storybook]: https://danburzo.github.io/uiuiui/storybook-static/?selectedKind=Slider
 [d3-scale]: https://github.com/d3/d3-scale
-[property]: https://github.com/danburzo/react-recipes/blob/master/recipes/property-pattern.md

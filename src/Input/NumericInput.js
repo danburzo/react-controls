@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { to_step, cycle, clamp, valid_float } from '../util/math';
 import { noop } from '../util/functions';
 import TextInput from './TextInput';
@@ -118,18 +120,32 @@ class NumericInput extends React.PureComponent {
 	}
 }
 
+NumericInput.propTypes = {
+	tabIndex: PropTypes.number,
+	className: PropTypes.string,
+	autofocus: PropTypes.bool.isRequired,
+	property: PropTypes.string,
+	cyclical: PropTypes.bool.isRequired,
+	step: PropTypes.number.isRequired,
+	precision: PropTypes.number.isRequired,
+	increment: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+	start: PropTypes.number.isRequired,
+	end: PropTypes.number.isRequired,
+	value: PropTypes.number,
+	onChange: PropTypes.func,
+	onStart: PropTypes.func,
+	onEnd: PropTypes.func
+};
+
 NumericInput.defaultProps = {
 	tabIndex: 0,
-	className: undefined,
 	autofocus: false,
-	property: undefined,
 	cyclical: false,
 	step: 1,
 	precision: 0,
 	increment: e => (e ? (e.shiftKey ? 10 : 1) : undefined),
 	start: 0,
 	end: 100,
-	value: undefined,
 	onChange: noop,
 	onStart: noop,
 	onEnd: noop
