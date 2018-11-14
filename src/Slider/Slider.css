@@ -9,6 +9,10 @@
 	height: 100%;
 }
 
+.uix-slider .uix-colorband {
+	position: absolute;
+}
+
 .uix-slider:focus {
 	outline: none;
 }

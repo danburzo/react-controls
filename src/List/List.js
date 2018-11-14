@@ -47,7 +47,7 @@ List.propTypes = {
 	/**
 	 * An optional identifier to pass along to the callback functions.
 	 */
-	property: PropTypes.string,
+	property: PropTypes.any,
 
 	/**
 	 * The component's tab index.

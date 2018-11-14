@@ -31,7 +31,19 @@ class ColorBand extends React.PureComponent {
 }
 
 ColorBand.propTypes = {
+	/**
+	 * Any additional class names to pass to the element.
+	 */
+	className: PropTypes.string,
+
+	/**
+	 * The gradient's direction.
+	 */
 	direction: PropTypes.string,
+
+	/**
+	 * An array of colors.
+	 */
 	colors: PropTypes.array
 };
 

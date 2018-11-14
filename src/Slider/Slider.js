@@ -142,7 +142,7 @@ Slider.propTypes = {
 	/**
 	 * [An optional identifier](https://github.com/danburzo/react-recipes/blob/master/recipes/property-pattern.md) to pass along to the callback functions.
 	 */
-	property: PropTypes.string,
+	property: PropTypes.any,
 
 	/**
 	 *

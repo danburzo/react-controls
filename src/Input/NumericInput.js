@@ -139,7 +139,7 @@ NumericInput.propTypes = {
 	/**
 	 * An optional identifier to pass along to the callback functions.
 	 */
-	property: PropTypes.string,
+	property: PropTypes.any,
 
 	/**
 	 * Whether the input should cycle the value when reaching the interval edges.

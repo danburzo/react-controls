@@ -138,7 +138,7 @@ class ColorInput extends React.Component {
 }
 
 ColorInput.propTypes = {
-	property: PropTypes.string,
+	property: PropTypes.any,
 	value: PropTypes.string,
 	onChange: PropTypes.func,
 	onStart: PropTypes.func,

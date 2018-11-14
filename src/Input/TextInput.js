@@ -127,14 +127,14 @@ TextInput.propTypes = {
 	/**
 	 * An optional identifier to pass along to the callback functions.
 	 */
-	property: PropTypes.string,
+	property: PropTypes.any,
 
 	/**
 	 * The input's initial value. Whenever the component receives
 	 * a new value from its parent, it will reset the component's inner state
 	 * to match that value.
 	 */
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
 	/**
 	 * When the `property` prop is set,

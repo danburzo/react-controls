@@ -24,7 +24,7 @@ const initial_state = {
 	
 */
 
-class Surface extends React.PureComponent {
+class Surface extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -61,9 +61,6 @@ class Surface extends React.PureComponent {
 		this.props.onEnd(e);
 	}
 
-	// TODO `rect` could be cached at the beginning of the interaction
-	// for better performance, but less reliability.
-	// (e.g. if the surface moves during the process)
 	scale({ x, y }) {
 		if (this.wrapper) {
 			let rect = this.wrapper.getBoundingClientRect();

@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import ControlledComponentWrapper from '../../../.storybook/helpers/ControlledComponentWrapper';
+import State from '../../../.storybook/helpers/State';
 
 import Slider from '../Slider';
 import SliderHandle from '../SliderHandle';
@@ -43,26 +43,30 @@ storiesOf('Slider', module)
 			</Slider>
 		);
 	})
-	.add('Basic Slider, Controlled', () => {
+	.add('Basic Slider (controlled)', () => {
 		return (
-			<ControlledComponentWrapper>
-				<Slider property="myslider">
-					<SliderTooltip />
-					<SliderHandle />
-					<SliderProgress />
-				</Slider>
-			</ControlledComponentWrapper>
+			<State>
+				{({ state, setState }) => (
+					<Slider value={state.value} onChange={value => setState({ value })}>
+						<SliderTooltip />
+						<SliderHandle />
+						<SliderProgress />
+					</Slider>
+				)}
+			</State>
 		);
 	})
-	.add('Basic Slider, cyclical Controlled', () => {
+	.add('Basic Slider, cyclical (controlled)', () => {
 		return (
-			<ControlledComponentWrapper>
-				<Slider property="myslider" cyclical>
-					<SliderTooltip />
-					<SliderHandle />
-					<SliderProgress />
-				</Slider>
-			</ControlledComponentWrapper>
+			<State>
+				{({ state, setState }) => (
+					<Slider value={state.value} onChange={value => setState({ value })} cyclical>
+						<SliderTooltip />
+						<SliderHandle />
+						<SliderProgress />
+					</Slider>
+				)}
+			</State>
 		);
 	})
 	.add('Vertical Slider', () => {

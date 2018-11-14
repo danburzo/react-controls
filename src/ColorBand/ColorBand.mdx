@@ -2,16 +2,28 @@
 name: ColorBand
 ---
 
-import { PropsTable, Playground } from 'docz';
+import { PropsTable, Playground, Link } from 'docz';
 import CheckerboardBand from './CheckerboardBand';
 import HueBand from './HueBand';
 import ColorBand from './ColorBand';
 
 # ColorBand
 
+Color bands are low-level components that are used inside sliders to build color picking interfaces.
+
 ## ColorBand
 
+A generic color band that draws a CSS linear gradient for a set of colors.
+
+### Properties
+
 <PropsTable of={ColorBand} />
+
+### CSS
+
+`ColorBand` has the CSS class __`.uix-colorband`__.
+
+### Example
 
 <Playground>
 	<div style={{height: '1em'}}>
@@ -21,7 +33,17 @@ import ColorBand from './ColorBand';
 
 ## CheckerboardBand
 
+A band that is often used in color pickers as a background for transparent colors.
+
+### Properties
+
 <PropsTable of={CheckerboardBand} />
+
+### CSS
+
+`CheckerboardBand` has the CSS modifier class __`.uix-colorband--checkerboard`__.
+
+### Example
 
 <Playground>
 	<CheckerboardBand/>
@@ -29,7 +51,17 @@ import ColorBand from './ColorBand';
 
 ## HueBand
 
+`HueBand` is a `ColorBand` that shows a progression of hues. It serves as a background to the `HueSlider` component.
+
+### Properties
+
 <PropsTable of={HueBand} />
+
+### CSS
+
+`HueBand` has the CSS modifier class __`.uix-colorband--hue`__.
+
+### Example
 
 <Playground>
 	<div style={{height: '1em'}}>

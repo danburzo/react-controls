@@ -17,12 +17,12 @@ class SaturationValuePad extends React.PureComponent {
 				<Pad
 					x={this.props.saturation}
 					y={this.props.brightness}
-					x_step="0.2"
-					x_precision="1"
-					y_start="100"
-					y_end="0"
-					y_step="0.2"
-					y_precision="1"
+					x_step={0.2}
+					x_precision={1}
+					y_start={100}
+					y_end={0}
+					y_step={0.2}
+					y_precision={1}
 					onChange={this.props.onChange}
 					property={this.props.property}
 					onStart={this.props.onStart}

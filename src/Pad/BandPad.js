@@ -104,7 +104,7 @@ BandPad.propTypes = {
 	step: PropTypes.number.isRequired,
 	precision: PropTypes.number.isRequired,
 	onChange: PropTypes.func,
-	property: PropTypes.string
+	property: PropTypes.any
 };
 
 BandPad.defaultProps = {

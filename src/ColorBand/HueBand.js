@@ -13,11 +13,23 @@ const rainbow = [
 	'hsl(360, 100%, 50%)'
 ];
 
-const HueBand = ({ direction }) => (
-	<ColorBand className="uix-colorband--hue" direction={direction} colors={rainbow} />
+const HueBand = ({ direction, className }) => (
+	<ColorBand
+		className={`${className || ''} uix-colorband--hue`}
+		direction={direction}
+		colors={rainbow}
+	/>
 );
 
 HueBand.propTypes = {
+	/**
+	 * Any additional class names to pass to the component.
+	 */
+	className: PropTypes.string,
+
+	/**
+	 * The gradient's direction.
+	 */
 	direction: PropTypes.string
 };
 

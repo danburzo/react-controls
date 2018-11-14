@@ -9,12 +9,12 @@ import CheckerboardBand from '../CheckerboardBand';
 
 storiesOf('ColorBand', module)
 	.add('HueBand', () => (
-		<div className="colorband-container">
+		<div style={{ height: '1em' }}>
 			<HueBand />
 		</div>
 	))
 	.add('CheckerboardBand', () => (
-		<div className="colorband-container">
+		<div style={{ height: '1em' }}>
 			<CheckerboardBand />
 		</div>
 	));

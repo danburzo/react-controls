@@ -8,14 +8,17 @@ import './ColorBand.css';
 class CheckerboardBand extends React.PureComponent {
 	constructor(props) {
 		super(props);
-		this._pattern_id = `checkerboard-pattern-${guid()}`;
+		this._pattern_id = `uix-pattern-${guid()}`;
 	}
 
 	render() {
-		let { size, fill } = this.props;
+		let { size } = this.props;
 
 		return (
-			<svg className="uix-colorband uix-colorband--checkerboard">
+			<svg
+				className={`${this.props.className ||
+					''} uix-colorband uix-colorband--checkerboard`}
+			>
 				<defs>
 					<pattern
 						id={this._pattern_id}
@@ -25,7 +28,7 @@ class CheckerboardBand extends React.PureComponent {
 						height={size}
 						patternUnits="userSpaceOnUse"
 					>
-						<g fill={fill}>
+						<g fill={this.props.fill}>
 							<rect x="0" y="0" width={size} height={size} fill="#fff" />
 							<rect x="0" y="0" width={size / 2} height={size / 2} />
 							<rect x={size / 2} y={size / 2} width={size / 2} height={size / 2} />
@@ -40,6 +43,11 @@ class CheckerboardBand extends React.PureComponent {
 }
 
 CheckerboardBand.propTypes = {
+	/**
+	 * Any additional class names to pass to the component.
+	 */
+	className: PropTypes.string,
+
 	/**
 	 * The size, in pixels, for the checkerboard squares.
 	 */

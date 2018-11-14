@@ -7,7 +7,7 @@ import Select from '../Select';
 import List from '../../List/List';
 import ListItem from '../../List/ListItem';
 
-import ControlledComponentWrapper from '../../../.storybook/helpers/ControlledComponentWrapper';
+import State from '../../../.storybook/helpers/State';
 
 import CustomSelectionUI from './CustomSelectionUI';
 
@@ -16,20 +16,23 @@ storiesOf('Select', module)
 		let items = [{ value: 1, label: 'one' }, { value: 2, label: 'two' }];
 
 		return (
-			<ControlledComponentWrapper>
-				<Select
-					property="some_property"
-					current={item => (item ? item.label : 'Placeholder')}
-				>
-					<List>
-						{items.map(item => (
-							<ListItem key={item.value} value={item}>
-								{item.label}
-							</ListItem>
-						))}
-					</List>
-				</Select>
-			</ControlledComponentWrapper>
+			<State>
+				{({ state, setState }) => (
+					<Select
+						value={state.value}
+						onChange={value => setState({ value })}
+						current={item => (item ? item.label : 'Placeholder')}
+					>
+						<List>
+							{items.map(item => (
+								<ListItem key={item.value} value={item}>
+									{item.label}
+								</ListItem>
+							))}
+						</List>
+					</Select>
+				)}
+			</State>
 		);
 	})
 	.add('with portal', () => {
@@ -43,29 +46,38 @@ storiesOf('Select', module)
 		];
 
 		return (
-			<ControlledComponentWrapper>
-				<Select
-					property="some_property"
-					current={item => (item ? item.label : 'Placeholder')}
-					target={document.body}
-				>
-					<List>
-						{items.map(item => (
-							<ListItem key={item.value} value={item}>
-								{item.label}
-							</ListItem>
-						))}
-					</List>
-				</Select>
-			</ControlledComponentWrapper>
+			<State>
+				{({ state, setState }) => (
+					<Select
+						value={state.value}
+						onChange={value => setState({ value })}
+						current={item => (item ? item.label : 'Placeholder')}
+						target={document.body}
+					>
+						<List>
+							{items.map(item => (
+								<ListItem key={item.value} value={item}>
+									{item.label}
+								</ListItem>
+							))}
+						</List>
+					</Select>
+				)}
+			</State>
 		);
 	})
 	.add('with arbitrary contents', () => {
 		return (
-			<ControlledComponentWrapper>
-				<Select property="some_property" current={item => (item ? item : 'Placeholder')}>
-					<CustomSelectionUI />
-				</Select>
-			</ControlledComponentWrapper>
+			<State>
+				{({ state, setState }) => (
+					<Select
+						value={state.value}
+						onChange={value => setState({ value })}
+						current={item => (item ? item : 'Placeholder')}
+					>
+						<CustomSelectionUI />
+					</Select>
+				)}
+			</State>
 		);
 	});

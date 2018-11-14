@@ -142,8 +142,8 @@ class ColorPicker extends React.PureComponent {
 					<ColorTextInput onChange={this.setColor} value={color} />
 
 					<NumericInput
-						start="0"
-						end="100"
+						start={0}
+						end={100}
 						value={opacity}
 						onChange={this.changed}
 						property="opacity"
