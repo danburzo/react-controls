@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EventListener from 'react-event-listener';
 import { scaleLinear } from 'd3-scale';
 
 import { noop } from '../util/functions';

@@ -1,5 +1,4 @@
 import React from 'react';
-import EventListener from 'react-event-listener';
 import PropTypes from 'prop-types';
 
 import Surface from '../Surface/Surface';

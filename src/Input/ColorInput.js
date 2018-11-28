@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EventListener, { withOptions } from 'react-event-listener';
 import PropTypes from 'prop-types';
 
+import Husk from '../Husk/Husk';
 import Popup from '../Popup/Popup';
 import Portal from '../Portal/Portal';
 import { identity, noop } from '../util/functions';
@@ -118,11 +118,21 @@ class ColorInput extends React.Component {
 								`}
 							onClose={this.end}
 						>
-							<EventListener
-								target="document"
-								onKeyDown={withOptions(this.onKeyDown, { capture: true })}
-								onKeyUp={withOptions(this.onKeyUp, { capture: true })}
+							<Husk
+								useEffect={() => {
+									document.addEventListener('keydown', this.onKeyDown, true);
+									document.addEventListener('keyup', this.onKeyUp, true);
+									return () => {
+										document.removeEventListener(
+											'keydown',
+											this.onKeyDown,
+											true
+										);
+										document.removeEventListener('keyup', this.onKeyUp, true);
+									};
+								}}
 							/>
+
 							{React.Children.map(this.props.children, child =>
 								React.cloneElement(child, {
 									value: value,

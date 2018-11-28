@@ -1,5 +1,4 @@
 import React from 'react';
-import EventListener from 'react-event-listener';
 import PropTypes from 'prop-types';
 import { noop } from '../util/functions';
 
@@ -20,6 +19,16 @@ class Position extends React.PureComponent {
 		super(props);
 		this.onChange = this.onChange.bind(this);
 		this.onEnd = this.onEnd.bind(this);
+	}
+
+	componentDidMount() {
+		document.addEventListener('mousemove', this.onChange);
+		document.addEventListener('mouseup', this.onEnd);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousemove', this.onChange);
+		document.removeEventListener('mouseup', this.onEnd);
 	}
 
 	onChange(e) {
@@ -46,9 +55,7 @@ class Position extends React.PureComponent {
 	}
 
 	render() {
-		return (
-			<EventListener target="document" onMouseMove={this.onChange} onMouseUp={this.onEnd} />
-		);
+		return null;
 	}
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EventListener from 'react-event-listener';
 import { noop } from '../util/functions';
 import Pad from '../Pad/Pad';
 

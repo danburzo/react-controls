@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EventListener from 'react-event-listener';
 
 import { scaleIdentity } from 'd3-scale';
 import Surface from './Surface';

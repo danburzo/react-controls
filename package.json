@@ -18,6 +18,7 @@
 		"@storybook/react": "^4.1.0-alpha.1",
 		"autoprefixer": "^9.3.1",
 		"babel-loader": "^8.0.4",
+		"culori-scales": "^1.0.9",
 		"docz": "^0.12.9",
 		"docz-plugin-css": "^0.11.0",
 		"gh-pages": "^2.0.1",
@@ -36,7 +37,6 @@
 	},
 	"dependencies": {
 		"culori": "^0.7.3",
-		"culori-scales": "^1.0.9",
 		"d3-scale": "^2.1.2",
 		"memoize-one": "^4.0.3",
 		"prop-types": "^15.6.2",

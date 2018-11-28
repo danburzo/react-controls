@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EventListener from 'react-event-listener';
 import { noop } from '../util/functions';
+
+import Husk from '../Husk/Husk';
 
 import './InputControls.css';
 
@@ -104,7 +105,16 @@ class NumericInputControls extends React.PureComponent {
 					</svg>
 				</span>
 
-				{increasing && <EventListener target="document" onMouseUp={this.stopIncrease} />}
+				{increasing && (
+					<Husk
+						useEffect={() => {
+							document.addEventListener('mouseup', this.stopIncrease);
+							return () => {
+								document.removeEventListener('mouseup', this.stopIncrease);
+							};
+						}}
+					/>
+				)}
 
 				<span
 					className="uix-input__control uix-input__control--decrement"
@@ -115,7 +125,17 @@ class NumericInputControls extends React.PureComponent {
 					</svg>
 				</span>
 
-				{decreasing && <EventListener target="document" onMouseUp={this.stopDecrease} />}
+				{decreasing && (
+					<Husk
+						useEffect={() => {
+							console.log('decreasing');
+							document.addEventListener('mouseup', this.stopDecrease);
+							return () => {
+								document.removeEventListener('mouseup', this.stopDecrease);
+							};
+						}}
+					/>
+				)}
 			</span>
 		);
 	}

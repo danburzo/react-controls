@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EventListener from 'react-event-listener';
 import PropTypes from 'prop-types';
+
+import Husk from '../Husk/Husk';
 
 import { noop } from '../util/functions';
 
@@ -45,7 +46,14 @@ class Popup extends React.Component {
 				tabIndex={tabIndex}
 				ref={this.register}
 			>
-				<EventListener target="document" onMouseDown={this.close_on_click_outside} />
+				<Husk
+					useEffect={() => {
+						document.addEventListener('mousedown', this.close_on_click_outside);
+						return () => {
+							document.removeEventListener('mousedown', this.close_on_click_outside);
+						};
+					}}
+				/>
 				{typeof this.props.children === 'function'
 					? this.props.children(this.close)
 					: this.props.children}

@@ -34,7 +34,7 @@ class MultiSliderHandle extends React.PureComponent {
 
 MultiSliderHandle.propTypes = {
 	onStart: PropTypes.func,
-	property: PropTypes.string
+	property: PropTypes.any
 };
 
 MultiSliderHandle.defaultProps = {
