@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import State from '../../../.storybook/helpers/State';
+import Husk from '../../Husk/Husk';
 
 import Slider from '../Slider';
 import SliderHandle from '../SliderHandle';
@@ -45,28 +45,28 @@ storiesOf('Slider', module)
 	})
 	.add('Basic Slider (controlled)', () => {
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<Slider value={state.value} onChange={value => setState({ value })}>
 						<SliderTooltip />
 						<SliderHandle />
 						<SliderProgress />
 					</Slider>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('Basic Slider, cyclical (controlled)', () => {
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<Slider value={state.value} onChange={value => setState({ value })} cyclical>
 						<SliderTooltip />
 						<SliderHandle />
 						<SliderProgress />
 					</Slider>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('Vertical Slider', () => {

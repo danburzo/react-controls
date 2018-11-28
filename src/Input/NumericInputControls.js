@@ -128,7 +128,6 @@ class NumericInputControls extends React.PureComponent {
 				{decreasing && (
 					<Husk
 						useEffect={() => {
-							console.log('decreasing');
 							document.addEventListener('mouseup', this.stopDecrease);
 							return () => {
 								document.removeEventListener('mouseup', this.stopDecrease);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import State from '../../../.storybook/helpers/State';
+import State from '../../Husk/Husk';
 
 import Pad from '../Pad';
 import PadGrid from '../PadGrid';
@@ -26,13 +26,13 @@ storiesOf('Pad', module)
 	})
 	.add('Basic Pad, controlled', () => {
 		return (
-			<State initial={{ x: 50, y: 50 }}>
-				{({ state, setState }) => (
+			<Husk useState={{ x: 50, y: 50 }}>
+				{(state, setState) => (
 					<Pad {...state} onChange={val => setState(val)}>
 						<PadHandle />
 					</Pad>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('Basic PolarPad', () => {

@@ -7,7 +7,7 @@ import Select from '../Select';
 import List from '../../List/List';
 import ListItem from '../../List/ListItem';
 
-import State from '../../../.storybook/helpers/State';
+import Husk from '../../Husk/Husk';
 
 import CustomSelectionUI from './CustomSelectionUI';
 
@@ -16,8 +16,8 @@ storiesOf('Select', module)
 		let items = [{ value: 1, label: 'one' }, { value: 2, label: 'two' }];
 
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<Select
 						value={state.value}
 						onChange={value => setState({ value })}
@@ -32,7 +32,7 @@ storiesOf('Select', module)
 						</List>
 					</Select>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('with portal', () => {
@@ -46,8 +46,8 @@ storiesOf('Select', module)
 		];
 
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<Select
 						value={state.value}
 						onChange={value => setState({ value })}
@@ -63,13 +63,13 @@ storiesOf('Select', module)
 						</List>
 					</Select>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('with arbitrary contents', () => {
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<Select
 						value={state.value}
 						onChange={value => setState({ value })}
@@ -78,6 +78,6 @@ storiesOf('Select', module)
 						<CustomSelectionUI />
 					</Select>
 				)}
-			</State>
+			</Husk>
 		);
 	});

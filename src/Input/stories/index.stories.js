@@ -3,8 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import State from '../../../.storybook/helpers/State';
-
+import Husk from '../../Husk/Husk';
 import TextInput from '../TextInput';
 import NumericInput from '../NumericInput';
 import NumericInputControls from '../NumericInputControls';
@@ -46,11 +45,11 @@ storiesOf('Input', module)
 	})
 	.add('NumericInput, Controlled', () => {
 		return (
-			<State>
-				{({ state, setState }) => (
+			<Husk>
+				{(state, setState) => (
 					<NumericInput value={state.value} onChange={value => setState({ value })} />
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('ColorInput', () => {
@@ -62,8 +61,8 @@ storiesOf('Input', module)
 	})
 	.add('ColorInput controlled', () => {
 		return (
-			<State initial={{ value: 'tomato' }}>
-				{({ state, setState }) => (
+			<Husk useState={{ value: 'tomato' }}>
+				{(state, setState) => (
 					<ColorInput
 						value={state.value}
 						onChange={value => setState({ value })}
@@ -72,13 +71,13 @@ storiesOf('Input', module)
 						<ColorPicker />
 					</ColorInput>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('ColorInput in portal', () => {
 		return (
-			<State initial={{ value: 'tomato' }}>
-				{({ state, setState }) => (
+			<Husk useState={{ value: 'tomato' }}>
+				{(state, setState) => (
 					<ColorInput
 						value={state.value}
 						onChange={value => setState({ value })}
@@ -88,7 +87,7 @@ storiesOf('Input', module)
 						<ColorPicker />
 					</ColorInput>
 				)}
-			</State>
+			</Husk>
 		);
 	})
 	.add('ColorTextInput (uncontrolled)', () => {
@@ -97,14 +96,14 @@ storiesOf('Input', module)
 
 	.add('ColorTextInput (controlled)', () => {
 		return (
-			<State initial={{ value: '#000' }}>
-				{({ state, setState }) => (
+			<Husk useState={{ value: '#000' }}>
+				{(state, setState) => (
 					<ColorTextInput
 						value={state.value}
 						format="hex"
 						onChange={value => setState({ value })}
 					/>
 				)}
-			</State>
+			</Husk>
 		);
 	});

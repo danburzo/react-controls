@@ -19,10 +19,10 @@ storiesOf('Swatch', module)
 				<h1>Culori scales</h1>
 
 				{Object.keys(scales).map(scale => (
-					<div>
+					<div key={scale}>
 						<h2>{scale}</h2>
-						{scales[scale].map(c => (
-							<Swatch color={hex(c)} />
+						{scales[scale].map((c, idx) => (
+							<Swatch key={idx} color={hex(c)} />
 						))}
 					</div>
 				))}

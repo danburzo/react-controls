@@ -1,7 +1,14 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, object, oneOfType } from 'prop-types';
 
 class Husk extends React.Component {
+	constructor(props) {
+		super(props);
+		let us = this.props.useState;
+		this.state = typeof us === 'function' ? us(props) : us;
+		this.__setState = this.setState.bind(this);
+	}
+
 	componentDidMount() {
 		if (this.props.useEffect) {
 			this.__cleanup = this.props.useEffect();
@@ -16,12 +23,17 @@ class Husk extends React.Component {
 	}
 
 	render() {
-		return null;
+		return this.props.children ? this.props.children(this.state, this.__setState) : null;
 	}
 }
 
 Husk.propTypes = {
-	useEffect: func
+	useEffect: func,
+	useState: oneOfType([object, func])
+};
+
+Husk.defaultProps = {
+	useState: {}
 };
 
 export default Husk;
