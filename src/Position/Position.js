@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '../util/functions';
 
@@ -14,50 +14,41 @@ import { noop } from '../util/functions';
 
 */
 
-class Position extends React.PureComponent {
-	constructor(props) {
-		super(props);
-		this.onChange = this.onChange.bind(this);
-		this.onEnd = this.onEnd.bind(this);
-	}
+const Position = function(props) {
+	useEffect(() => {
+		const onChange = e => {
+			props.onChange(
+				{
+					x: e.clientX,
+					y: e.clientY,
+					event: e
+				},
+				props.property
+			);
+			e.preventDefault();
+		};
 
-	componentDidMount() {
-		document.addEventListener('mousemove', this.onChange);
-		document.addEventListener('mouseup', this.onEnd);
-	}
+		const onEnd = e => {
+			props.onEnd(
+				{
+					x: e.clientX,
+					y: e.clientY,
+					event: e
+				},
+				props.property
+			);
+		};
+		document.addEventListener('mousemove', onChange);
+		document.addEventListener('mouseup', onEnd);
 
-	componentWillUnmount() {
-		document.removeEventListener('mousemove', this.onChange);
-		document.removeEventListener('mouseup', this.onEnd);
-	}
+		return () => {
+			document.removeEventListener('mousemove', onChange);
+			document.removeEventListener('mouseup', onEnd);
+		};
+	}, [props.onChange, props.onEnd, props.property]);
 
-	onChange(e) {
-		this.props.onChange(
-			{
-				x: e.clientX,
-				y: e.clientY,
-				event: e
-			},
-			this.props.property
-		);
-		e.preventDefault();
-	}
-
-	onEnd(e) {
-		this.props.onEnd(
-			{
-				x: e.clientX,
-				y: e.clientY,
-				event: e
-			},
-			this.props.property
-		);
-	}
-
-	render() {
-		return null;
-	}
-}
+	return null;
+};
 
 Position.propTypes = {
 	/**
