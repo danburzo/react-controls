@@ -63,7 +63,7 @@ class Select extends React.Component {
 	}
 
 	render() {
-		let { className, tabIndex, target } = this.props;
+		let { className, tabIndex, target, buttonContent } = this.props;
 
 		let { interacting, wrapper } = this.state;
 
@@ -81,7 +81,7 @@ class Select extends React.Component {
 				<div className="uix-select__current" onMouseDown={this.open}>
 					<div className="uix-select__value">{this.props.current(this.props.value)}</div>
 					<div className="uix-select__button">
-						<button tabIndex="-1">↓</button>
+						<button tabIndex="-1">{buttonContent || "↓"}</button>
 					</div>
 				</div>
 
@@ -118,6 +118,7 @@ class Select extends React.Component {
 Select.propTypes = {
 	property: PropTypes.any,
 	className: PropTypes.string,
+	buttonContent: propTypes.string,
 	value: PropTypes.number,
 	tabIndex: PropTypes.number,
 	target: PropTypes.object
