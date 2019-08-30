@@ -119,7 +119,7 @@ Select.propTypes = {
 	property: PropTypes.any,
 	className: PropTypes.string,
 	buttonContent: propTypes.string,
-	value: PropTypes.number,
+	value: PropTypes.any,
 	tabIndex: PropTypes.number,
 	target: PropTypes.object
 };
