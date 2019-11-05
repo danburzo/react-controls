@@ -17,11 +17,12 @@ class HueSlider extends React.PureComponent {
 				start={0}
 				end={360}
 				step={1}
+				vertical={this.props.vertical}
 				onChange={this.props.onChange}
 				onStart={this.props.onStart}
 				onEnd={this.props.onEnd}
 			>
-				<HueBand />
+				<HueBand direction={this.props.direction} />
 				<SliderHandle />
 			</Slider>
 		);
@@ -33,7 +34,9 @@ HueSlider.propTypes = {
 	onChange: PropTypes.func,
 	onEnd: PropTypes.func,
 	property: PropTypes.any,
-	hue: PropTypes.number
+	hue: PropTypes.number,
+	vertical: PropTypes.bool,
+	direction: PropTypes.string
 };
 
 HueSlider.defaultProps = {
