@@ -56,6 +56,7 @@ class ColorPicker extends React.PureComponent {
 	}
 
 	start(e) {
+		e.preventDefault();
 		this.props.onStart(_css(hsba_to_hsv(this.state)), e);
 	}
 

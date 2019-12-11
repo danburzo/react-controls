@@ -112,6 +112,7 @@ class Pad extends React.PureComponent {
 	}
 
 	start(e) {
+		e.persist();
 		this.setState(
 			{
 				interacting: true
