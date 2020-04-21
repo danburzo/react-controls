@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { noop } from '../util/functions';
+import normalizeEvent from '../util/normalize-event';
 
 import './MultiSliderHandle.css';
 
@@ -12,6 +13,7 @@ class MultiSliderHandle extends React.PureComponent {
 	}
 
 	startInteraction(e) {
+		e = normalizeEvent(e);
 		this.props.onStart(e, this.props.property);
 	}
 
@@ -26,6 +28,7 @@ class MultiSliderHandle extends React.PureComponent {
 			<div
 				className="uix-multislider__handle"
 				onMouseDown={this.startInteraction}
+				onTouchStart={this.startInteraction}
 				style={styles}
 			/>
 		);

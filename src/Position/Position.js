@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '../util/functions';
+import normalizeEvent from '../util/normalize-event';
 
 /*
 	Component: Position
@@ -22,16 +23,23 @@ class Position extends React.PureComponent {
 	}
 
 	componentDidMount() {
+		console.log('attached');
 		document.addEventListener('mousemove', this.onChange);
 		document.addEventListener('mouseup', this.onEnd);
+		document.addEventListener('touchstart', this.onChange);
+		document.addEventListener('touchend', this.onEnd);
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener('mousemove', this.onChange);
 		document.removeEventListener('mouseup', this.onEnd);
+		document.removeEventListener('touchstart', this.onChange);
+		document.removeEventListener('touchend', this.onEnd);
 	}
 
 	onChange(e) {
+		console.log(e);
+		e = normalizeEvent(e);
 		this.props.onChange(
 			{
 				x: e.clientX,
@@ -44,6 +52,7 @@ class Position extends React.PureComponent {
 	}
 
 	onEnd(e) {
+		e = normalizeEvent(e);
 		this.props.onEnd(
 			{
 				x: e.clientX,
