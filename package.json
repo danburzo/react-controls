@@ -1,6 +1,6 @@
 {
 	"name": "uiuiui",
-	"version": "0.5.16",
+	"version": "0.5.17",
 	"main": "dist/uiuiui.cjs.js",
 	"module": "dist/uiuiui.js",
 	"source": "src/index.js",
@@ -40,8 +40,8 @@
 		"d3-scale": "^2.2.2",
 		"memoize-one": "^5.0.0",
 		"prop-types": "^15.6.2",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1"
 	},
 	"scripts": {
 		"build": "rollup -c",
