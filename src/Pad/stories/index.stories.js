@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import State from '../../Husk/Husk';
+import Husk from '../../Husk/Husk';
 
 import Pad from '../Pad';
 import PadGrid from '../PadGrid';
