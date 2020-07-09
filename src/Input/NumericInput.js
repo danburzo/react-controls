@@ -38,8 +38,9 @@ class NumericInput extends React.PureComponent {
 		}
 	}
 
+	// Don't format user input if it's not defined (so we don't end up with NaN)
 	format_user_input(value) {
-		return this.format_value(parseFloat(value));
+		return value ? this.format_value(parseFloat(value)) : value;
 	}
 
 	format_value(value, method = clamp) {

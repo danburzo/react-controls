@@ -52,6 +52,25 @@ storiesOf('Input', module)
 			</Husk>
 		);
 	})
+	.add('NumericInput, Controller, Set to undefined', () => {
+		return (
+			<Husk useState={{ value: 50 }}>
+				{(state, setState) => (
+					<React.Fragment>
+						<NumericInput value={state.value} onChange={value => setState({ value })} />
+
+						<button
+							onClick={() => {
+								setState({ value: undefined });
+							}}
+						>
+							set to undefined
+						</button>
+					</React.Fragment>
+				)}
+			</Husk>
+		);
+	})
 	.add('ColorInput', () => {
 		return (
 			<ColorInput value="tomato" current={value => <Swatch color={value} />}>
