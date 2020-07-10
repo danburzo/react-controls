@@ -27,6 +27,7 @@ class Select extends React.Component {
 	select(value) {
 		this.close();
 		this.focus();
+		this.props.onSelect(value, this.props.property);
 		if (value !== this.props.value) {
 			this.props.onChange(value, this.props.property);
 		}
@@ -81,7 +82,7 @@ class Select extends React.Component {
 				<div className="uix-select__current" onMouseDown={this.open}>
 					<div className="uix-select__value">{this.props.current(this.props.value)}</div>
 					<div className="uix-select__button">
-						<button tabIndex="-1">{buttonContent || "↓"}</button>
+						<button tabIndex="-1">{buttonContent || '↓'}</button>
 					</div>
 				</div>
 
@@ -118,7 +119,7 @@ class Select extends React.Component {
 Select.propTypes = {
 	property: PropTypes.any,
 	className: PropTypes.string,
-	buttonContent: propTypes.string,
+	buttonContent: PropTypes.string,
 	value: PropTypes.any,
 	tabIndex: PropTypes.number,
 	target: PropTypes.object
@@ -126,7 +127,8 @@ Select.propTypes = {
 
 Select.defaultProps = {
 	tabIndex: 0,
-	onChange: noop
+	onChange: noop,
+	onSelect: noop
 };
 
 export default Select;

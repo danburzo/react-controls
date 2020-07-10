@@ -11,7 +11,6 @@ class CustomSelectionUI extends React.Component {
 					cy={arr[1]}
 					r="10"
 					onClick={() => {
-						console.log('click');
 						this.props.onSelect(arr[2]);
 					}}
 					className={this.props.value === arr[2] ? 'selected' : ''}

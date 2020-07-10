@@ -13,7 +13,7 @@ class SaturationValuePad extends React.PureComponent {
 	render() {
 		return (
 			<div className="uix-colorpad uix-colorpad--saturationvalue">
-				<HueSpectrum hue={this.props.hue} />
+				<HueSpectrum className={this.props.className} hue={this.props.hue} />
 				<Pad
 					x={this.props.saturation}
 					y={this.props.brightness}
@@ -41,11 +41,13 @@ class HueSpectrum extends React.PureComponent {
 		return (
 			<React.Fragment>
 				<ColorBand
+					className={this.props.className}
 					direction="to right"
 					colors={[`hsl(${hue}, 100%, 100%)`, `hsl(${hue}, 100%, 50%)`]}
 				/>
 
 				<ColorBand
+					className={this.props.className}
 					direction="to bottom"
 					colors={[`hsla(${hue}, 100%, 0%, 0)`, `hsla(${hue}, 100%, 0%, 1)`]}
 				/>
@@ -54,6 +56,10 @@ class HueSpectrum extends React.PureComponent {
 	}
 }
 
+HueSpectrum.propTypes = {
+	className: PropTypes.string
+};
+
 SaturationValuePad.propTypes = {
 	hue: PropTypes.number.isRequired,
 	saturation: PropTypes.number,
@@ -61,7 +67,8 @@ SaturationValuePad.propTypes = {
 	onStart: PropTypes.func,
 	onChange: PropTypes.func,
 	onEnd: PropTypes.func,
-	property: PropTypes.any
+	property: PropTypes.any,
+	className: PropTypes.string
 };
 
 SaturationValuePad.defaultProps = {

@@ -51,6 +51,7 @@ class Slider extends React.Component {
 	}
 
 	start(e) {
+		e.persist();
 		this.setState(
 			{
 				interacting: true

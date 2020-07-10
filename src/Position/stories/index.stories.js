@@ -32,16 +32,17 @@ storiesOf('Position', module)
 				this.state = {
 					interacting: false
 				};
+				this.startInteraction = this.startInteraction.bind(this);
+			}
+
+			startInteraction(e) {
+				this.setState({ interacting: true });
+				e.preventDefault();
 			}
 
 			render() {
 				return (
-					<div
-						onMouseDown={e => {
-							this.setState({ interacting: true });
-							e.preventDefault();
-						}}
-					>
+					<div onMouseDown={this.startInteraction} onTouchStart={this.startInteraction}>
 						<p>
 							Hold down the mouse here and move it to read its coordinates:{' '}
 							{this.state.x}: {this.state.y}

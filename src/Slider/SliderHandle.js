@@ -13,6 +13,7 @@ class SliderHandle extends React.PureComponent {
 			<PadHandle
 				className={`
 					uix-slider__handle
+					${this.props.className}
 					${this.props.interacting ? 'uix-slider__handle--interacting' : ''}
 				`}
 				{...this.props}
@@ -22,6 +23,12 @@ class SliderHandle extends React.PureComponent {
 	}
 }
 
-SliderHandle.propTypes = {};
+SliderHandle.propTypes = {
+	className: PropTypes.string
+};
+
+SliderHandle.defaultProps = {
+	className: ''
+};
 
 export default SliderHandle;

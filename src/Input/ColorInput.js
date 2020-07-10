@@ -51,7 +51,11 @@ class ColorInput extends React.Component {
 		});
 	}
 
-	end() {
+	end(color, e) {
+		// use props.shouldClose when you have children outside of the current target
+		// e.g. dropdowns which are rendered via portals
+		if (this.props.shouldClose(e) === false) return;
+
 		this.setState({ interacting: false }, () => {
 			this.props.onEnd();
 		});
@@ -154,6 +158,7 @@ ColorInput.propTypes = {
 	onStart: PropTypes.func,
 	onEnd: PropTypes.func,
 	onCancel: PropTypes.func,
+	shouldClose: PropTypes.func,
 	shouldKeyDownEndInteraction: PropTypes.func,
 	shouldKeyUpEndInteraction: PropTypes.func,
 	shouldKeyDownCancelInteraction: PropTypes.func,
@@ -166,6 +171,7 @@ ColorInput.defaultProps = {
 	onStart: noop,
 	onEnd: noop,
 	onCancel: noop,
+	shouldClose: noop,
 	shouldKeyDownEndInteraction: noop,
 	shouldKeyUpEndInteraction: noop,
 	shouldKeyDownCancelInteraction: noop,

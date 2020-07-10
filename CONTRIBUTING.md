@@ -1,4 +1,4 @@
-]## Prerequisites
+## Prerequisites
 
 This project uses Node, npm, and [yarn](https://yarnpkg.org). We use [Storybook](https://storybook.js.org) for testing things visually, and [Docz](https://docz.site) for building a static documentation site.
 

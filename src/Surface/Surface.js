@@ -5,6 +5,7 @@ import { scaleLinear } from 'd3-scale';
 
 import Position from '../Position/Position';
 import { noop } from '../util/functions';
+import normalizeEvent, { isTouchEnabledDevice } from '../util/normalize-event';
 
 import './Surface.css';
 
@@ -22,7 +23,6 @@ const initial_state = {
 	for the X and Y coordinates in percentages (interval [0..100]).
 	
 */
-
 class Surface extends React.Component {
 	constructor(props) {
 		super(props);
@@ -42,6 +42,7 @@ class Surface extends React.Component {
 	}
 
 	start(e) {
+		e = normalizeEvent(e);
 		this.setState({
 			interacting: true
 		});
@@ -54,6 +55,7 @@ class Surface extends React.Component {
 	}
 
 	end(e) {
+		e = normalizeEvent(e);
 		this.setState({
 			interacting: false
 		});
@@ -75,6 +77,7 @@ class Surface extends React.Component {
 	}
 
 	insert(e) {
+		e = normalizeEvent(e);
 		this.props.onInsert(
 			this.scale({
 				x: e.clientX,
@@ -92,6 +95,8 @@ class Surface extends React.Component {
 		let events = {};
 		if (passive) {
 			events['onDoubleClick'] = this.insert;
+		} else if (isTouchEnabledDevice()) {
+			events['onTouchMove'] = this.start;
 		} else {
 			events['onMouseDownCapture'] = this.start;
 		}

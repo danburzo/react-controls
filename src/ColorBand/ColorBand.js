@@ -19,8 +19,7 @@ class ColorBand extends React.PureComponent {
 		return (
 			<div
 				className={`
-					uix-colorband
-					${className || ''}
+					uix-colorband					${className || ''}
 				`}
 				style={{
 					backgroundImage: linearGradient(direction, colors)

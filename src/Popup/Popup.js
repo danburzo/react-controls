@@ -17,7 +17,7 @@ class Popup extends React.Component {
 	}
 
 	close(e) {
-		this.props.onClose(this.props.property);
+		this.props.onClose(this.props.property, e);
 	}
 
 	close_on_click_outside(e) {
@@ -49,8 +49,10 @@ class Popup extends React.Component {
 				<Husk
 					useEffect={() => {
 						document.addEventListener('mousedown', this.close_on_click_outside);
+						document.addEventListener('touchstart', this.close_on_click_outside);
 						return () => {
 							document.removeEventListener('mousedown', this.close_on_click_outside);
+							document.removeEventListener('touchstart', this.close_on_click_outside);
 						};
 					}}
 				/>

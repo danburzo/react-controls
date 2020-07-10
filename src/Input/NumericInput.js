@@ -38,8 +38,9 @@ class NumericInput extends React.PureComponent {
 		}
 	}
 
+	// Don't format user input if it's not defined (so we don't end up with NaN)
 	format_user_input(value) {
-		return this.format_value(parseFloat(value));
+		return value ? this.format_value(parseFloat(value)) : value;
 	}
 
 	format_value(value, method = clamp) {
@@ -94,21 +95,33 @@ class NumericInput extends React.PureComponent {
 	}
 
 	offset(e, dir) {
+		e.stopPropagation();
+		const input = e.target;
 		let amount = this.step_amount(e) * dir * Math.sign(this.props.end - this.props.start);
-		this.setState(current_state => {
-			let base_value =
-				current_state.value !== undefined ? current_state.value : this.props.start;
+		this.setState(
+			current_state => {
+				let base_value =
+					current_state.value !== undefined ? current_state.value : this.props.start;
 
-			let value = this.format_value(base_value + amount, this.props.cyclical ? cycle : clamp);
+				let value = this.format_value(
+					base_value + amount,
+					this.props.cyclical ? cycle : clamp
+				);
 
-			// Avoid unnecessary renders
-			// when value has not actually changed
-			return value !== current_state.value
-				? {
-						value: value
-				  }
-				: null;
-		});
+				// Avoid unnecessary renders
+				// when value has not actually changed
+				return value !== current_state.value
+					? {
+							value: value
+					  }
+					: null;
+			},
+			() => {
+				if (this.props.focusOnUpdate) {
+					input.focus();
+				}
+			}
+		);
 	}
 
 	step_amount(e) {
@@ -195,7 +208,12 @@ NumericInput.propTypes = {
 	/**
 	 * When the `property` prop is set, it will be passed back as the second argument.
 	 */
-	onEnd: PropTypes.func
+	onEnd: PropTypes.func,
+
+	/**
+	 * Focus the input element after state was updated
+	 */
+	focusOnUpdate: PropTypes.bool
 };
 
 NumericInput.defaultProps = {
@@ -209,7 +227,8 @@ NumericInput.defaultProps = {
 	end: 100,
 	onChange: noop,
 	onStart: noop,
-	onEnd: noop
+	onEnd: noop,
+	focusOnUpdate: false
 };
 
 export default NumericInput;
