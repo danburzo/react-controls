@@ -28,7 +28,6 @@
 		"postcss": "^8.2.4",
 		"prettier": "^2.2.1",
 		"pretty-quick": "^3.1.0",
-		"raw-loader": "^4.0.2",
 		"react-live": "^2.2.3",
 		"rollup": "^2.38.0",
 		"rollup-plugin-css-bundle": "^1.0.4"
@@ -45,12 +44,7 @@
 		"build": "rollup -c",
 		"build:watch": "rollup -c -w",
 		"storybook:start": "start-storybook --port 6001",
-		"storybook:build": "build-storybook -o .storybook/dist",
-		"docs:start": "docz dev",
-		"docs:build": "docz build",
-		"docs:deploy": "npm run docs:build && gh-pages -d .docz/dist",
-		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"storybook:build": "build-storybook --output .storybook/dist"
 	},
 	"husky": {
 		"hooks": {
