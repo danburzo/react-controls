@@ -13,9 +13,6 @@ Install uiuiui as a dependency to your project:
 ```bash
 # using npm
 npm install uiuiui
-
-# using yarn
-yarn add --dev uiuiui
 ```
 
 It's bundled for both CJS and ES modules, so either way of using it works:
