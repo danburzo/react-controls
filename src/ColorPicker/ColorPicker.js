@@ -1,10 +1,6 @@
 // Libs
 import React from 'react';
-import culori, {
-	formatter as culoriFormatter,
-	round as culoriRound,
-	hsv as culoriHsv
-} from 'culori';
+import { formatter as culoriFormatter, round as culoriRound, hsv as culoriHsv } from 'culori';
 import PropTypes from 'prop-types';
 
 import { noop } from '../util/functions';

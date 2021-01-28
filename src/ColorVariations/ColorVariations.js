@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import culori, { formatter, samples, interpolate } from 'culori';
+import { formatter, samples, interpolate } from 'culori';
 
 import { noop } from '../util/functions';
 

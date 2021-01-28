@@ -1,6 +1,6 @@
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
-import buble from 'rollup-plugin-buble';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import buble from '@rollup/plugin-buble';
 import cssbundle from 'rollup-plugin-css-bundle';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
@@ -10,7 +10,10 @@ export default [
 	{
 		input: pkg.source,
 		external: Object.keys(pkg.dependencies),
-		output: [{ file: pkg.main, format: 'cjs' }, { file: pkg.module, format: 'es' }],
+		output: [
+			{ file: pkg.main, format: 'cjs' },
+			{ file: pkg.module, format: 'es' }
+		],
 		plugins: [
 			cssbundle({
 				output: pkg.style,
